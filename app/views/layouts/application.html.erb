@@ -33,10 +33,26 @@
           <%= link_to "Quiénes somos", "#", class: "hover:text-sarah-ink" %>
           <%= link_to "Cursos", "#", class: "hover:text-sarah-ink" %>
           <%= link_to "Contacto", "#", class: "hover:text-sarah-ink" %>
-          <%= link_to "Portal", "#", class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+          <% if user_signed_in? %>
+            <%= link_to "Portal", portal_root_path, class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+            <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "text-sarah-muted hover:text-sarah-ink" %>
+          <% else %>
+            <%= link_to "Iniciar sesión", new_user_session_path, class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+          <% end %>
         </nav>
       </div>
     </header>
+
+    <% if notice.present? || alert.present? %>
+      <div class="mx-auto max-w-5xl px-4 pt-6 md:px-6" role="status">
+        <% if notice.present? %>
+          <p class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900"><%= notice %></p>
+        <% end %>
+        <% if alert.present? %>
+          <p class="mt-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900"><%= alert %></p>
+        <% end %>
+      </div>
+    <% end %>
 
     <main id="contenido-principal" class="flex-1">
       <div class="mx-auto max-w-5xl px-4 py-10 md:px-6 md:py-14">

@@ -1,0 +1,9 @@
+es:
+  pundit:
+    not_authorized: "No estás autorizado para realizar esta acción."
+  user:
+    roles:
+      patient: "Paciente"
+      professional: "Profesional"
+      admin: "Administrador"
+      system_admin: "Administrador de sistema"

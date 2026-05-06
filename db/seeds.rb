@@ -1,9 +1,19 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Semillas idempotentes: un usuario por rol para desarrollo y pruebas manuales.
+password = ENV.fetch("SEED_USER_PASSWORD", "Cambiala123!")
+
+seed_users = [
+  { email: "system.admin@sarahmind.test", role: :system_admin },
+  { email: "admin@sarahmind.test", role: :admin },
+  { email: "pro@sarahmind.test", role: :professional },
+  { email: "paciente@sarahmind.test", role: :patient }
+]
+
+seed_users.each do |attrs|
+  user = User.find_or_initialize_by(email: attrs[:email])
+  user.role = attrs[:role]
+  user.password = password
+  user.password_confirmation = password
+  user.save!
+end
+
+Rails.logger.info { "Semillas de usuarios listas (contraseña por defecto en desarrollo: revisa SEED_USER_PASSWORD / .env)." }

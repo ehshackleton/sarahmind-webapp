@@ -10,11 +10,11 @@
 
 ## Sprint 1 - Seguridad y acceso
 
-- [ ] Implementar `devise` para autenticacion.
-- [ ] Implementar roles (`system_admin`, `admin`, `professional`, `patient`).
-- [ ] Integrar `pundit` para autorizacion.
-- [ ] Crear semilla de usuarios por rol.
-- [ ] Bloquear rutas privadas para usuarios no autenticados.
+- [x] Implementar `devise` para autenticacion.
+- [x] Implementar roles (`system_admin`, `admin`, `professional`, `patient`).
+- [x] Integrar `pundit` para autorizacion.
+- [x] Crear semilla de usuarios por rol.
+- [x] Bloquear rutas privadas para usuarios no autenticados.
 
 ## Sprint 2 - Sitio publico (MVP 1)
 

@@ -1,0 +1,10 @@
+# Contraseña para todos en tests: "password123" (BCrypt cost bajo para velocidad).
+patient:
+  email: patient@example.com
+  encrypted_password: <%= ::BCrypt::Password.create("password123", cost: 4) %>
+  role: patient
+
+admin:
+  email: admin@example.com
+  encrypted_password: <%= ::BCrypt::Password.create("password123", cost: 4) %>
+  role: admin

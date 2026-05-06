@@ -78,6 +78,12 @@ Rails.application.configure do
   # caching is enabled.
   config.action_mailer.perform_caching = false
 
+  # Necesario para enlaces de Devise (p. ej. recuperación de contraseña).
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST", "sarahmind.cl"),
+    protocol: ENV.fetch("APP_URL_PROTOCOL", "https")
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

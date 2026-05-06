@@ -1,0 +1,12 @@
+<% content_for :title, "Portal — SarahMind" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/80 p-8 shadow-sm md:p-10">
+  <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Portal privado</h1>
+  <p class="mt-2 text-sarah-muted">
+    Has iniciado sesión como <span class="font-medium text-sarah-ink"><%= current_user.email %></span>
+    (rol: <span class="font-medium text-sarah-ink"><%= t("user.roles.#{current_user.role}") %></span>).
+  </p>
+  <p class="mt-4 text-sm text-sarah-muted">
+    Aquí irá el panel de pacientes, agenda y administración según el backlog del MVP.
+  </p>
+</section>
