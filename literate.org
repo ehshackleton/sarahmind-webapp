@@ -1,0 +1,799 @@
+#+TITLE: Informe Inicial de Plataforma Web :: SarahMind.cl
+#+SUBTITLE: Web pública, e-learning y portal privado en Ruby on Rails
+#+AUTHOR: Sebastian Godoy Olivares
+#+DATE: 2026-05-06
+#+LANGUAGE: es
+#+OPTIONS: toc:t num:t
+#+DESCRIPTION: Definición inicial funcional, técnica y operativa para la plataforma SarahMind.cl.
+#+KEYWORDS: Ruby on Rails, salud mental, víctimas, e-learning, backoffice, pacientes, agenda, seguridad, privacidad
+#+CATEGORY: Plataforma Web
+#+TAGS: rails webapp sarahmind salud_mental backoffice pacientes elearning
+
+* Resumen ejecutivo
+
+SarahMind.cl se proyecta como una plataforma web desarrollada en Ruby on Rails, orientada a entregar información, acompañamiento educativo y gestión privada para personas víctimas de abuso, maltrato o violencia.
+
+La plataforma debe entenderse como dos productos conectados:
+
+1. Un sitio web público, enfocado en información, recursos de ayuda, cursos, noticias y ejercicios de apoyo.
+2. Un portal privado o backoffice, enfocado en la gestión de pacientes, agenda, sesiones, ficha clínica, ventas, contabilidad y administración interna.
+
+Dado que el sistema puede tratar información sensible, como datos personales, ficha clínica, antecedentes de pacientes y documentación privada, la plataforma debe considerar desde su diseño inicial principios de seguridad, confidencialidad, consentimiento informado, auditoría y control de acceso por roles.
+
+* Objetivo general
+
+Diseñar e implementar una webapp en Ruby on Rails para SarahMind.cl, que permita entregar información pública y recursos de aprendizaje a víctimas de abuso o maltrato, junto con un portal privado para la administración de pacientes, sesiones, cursos, agenda, ventas y contabilidad.
+
+* Objetivos específicos
+
+- Crear un sitio público con identidad visual cálida, profesional y segura.
+- Publicar información educativa para víctimas de abuso, maltrato o violencia.
+- Habilitar cursos y recursos e-learning.
+- Publicar noticias, estudios nacionales, actualizaciones legales y recursos institucionales.
+- Implementar un portal privado con autenticación y control de roles.
+- Gestionar pacientes, fichas clínicas, documentos y programación de sesiones.
+- Integrar agenda con Google Calendar y Google Meet.
+- Incorporar módulos administrativos de ventas, pagos, boletas y contabilidad.
+- Diseñar la plataforma considerando privacidad, trazabilidad y protección de datos.
+
+* Concepto de plataforma
+
+SarahMind.cl debe funcionar como una plataforma híbrida:
+
+** Sitio público
+
+El sitio público estará orientado a entregar información clara, confiable y humana para personas que han vivido situaciones de abuso, maltrato o violencia.
+
+Debe incluir:
+
+- Información sobre abuso, maltrato y violencia.
+- Tips y ejercicios de apoyo.
+- Cursos o cápsulas educativas.
+- Noticias y estudios relevantes.
+- Recursos institucionales.
+- Información sobre SarahMind.
+- Acceso al portal privado.
+
+** Portal privado
+
+El portal privado estará orientado a la gestión interna de usuarios, pacientes, profesionales, sesiones, cursos, pagos y administración general.
+
+Debe incluir:
+
+- Dashboard administrativo.
+- Gestión de pacientes.
+- Fichas clínicas.
+- Agenda de sesiones.
+- Programación de tratamiento o acompañamiento.
+- Gestión de cursos.
+- Contabilidad.
+- Ventas y emisión de boletas.
+- Administración de usuarios y roles.
+
+* Identidad visual sugerida
+
+** Tono comunicacional
+
+El tono del sitio debe ser:
+
+- Cálido.
+- Humano.
+- Seguro.
+- Profesional.
+- Contenedor.
+- No revictimizante.
+- Claro y simple.
+
+El lenguaje debe evitar tecnicismos excesivos y debe transmitir confianza.
+
+** Paleta cromática sugerida
+
+Se recomienda una paleta basada en tonos:
+
+- Azulino suave, asociado a confianza, calma y profesionalismo.
+- Beige o arena, asociado a calidez y cercanía.
+- Coral suave, asociado a humanidad y contención.
+- Blanco cálido, para limpieza visual.
+- Gris azulado, para textos secundarios.
+
+** Logo
+
+El logo de SarahMind debe transmitir:
+
+- Cuidado.
+- Protección.
+- Confianza.
+- Calma.
+- Reconstrucción personal.
+- Acompañamiento.
+
+Elementos visuales posibles:
+
+- Mente abstracta.
+- Hoja.
+- Flor minimalista.
+- Círculo protector.
+- Abrazo simbólico.
+- Silueta suave.
+- Forma orgánica vinculada a bienestar emocional.
+
+Se recomienda evitar símbolos demasiado clínicos, agresivos o fríos.
+
+* Estructura del sitio público
+
+** Menú principal sugerido
+
+- Inicio
+- Quiénes somos
+- Tratamientos / Acompañamiento
+- Cursos
+- Tips y ejercicios
+- Noticias
+- Recursos de ayuda
+- Contacto
+- Portal de usuario
+
+* Página de inicio
+
+** Objetivo de la página
+
+La página de inicio debe presentar rápidamente qué es SarahMind, a quién ayuda y qué recursos ofrece.
+
+** Secciones sugeridas
+
+*** Hero principal
+
+Texto sugerido:
+
+#+begin_quote
+Acompañamiento, orientación y herramientas para personas que han vivido abuso, maltrato o violencia.
+#+end_quote
+
+Botones sugeridos:
+
+- Solicitar orientación
+- Ver cursos
+- Ingresar al portal
+
+*** Bloque de seguridad
+
+Debe incluir un mensaje visible para casos urgentes.
+
+Texto sugerido:
+
+#+begin_quote
+Si estás en una situación de riesgo inmediato, busca ayuda urgente o comunícate con los canales oficiales disponibles en tu país.
+#+end_quote
+
+En Chile se puede considerar la incorporación de canales oficiales como el Fono 1455, relacionado con orientación en violencia contra las mujeres.
+
+*** Bloque educativo
+
+Temas sugeridos:
+
+- Qué es el abuso psicológico.
+- Señales de maltrato.
+- Cómo crear una red de apoyo.
+- Primeros pasos para pedir ayuda.
+- Ejercicios de respiración.
+- Regulación emocional.
+- Recomendaciones para familiares o redes cercanas.
+
+*** Bloque de cursos
+
+Cursos iniciales sugeridos:
+
+- Autocuidado emocional.
+- Reconocer señales de violencia.
+- Primeros auxilios psicológicos básicos.
+- Herramientas para reconstruir autoestima.
+- Orientación para familiares o redes de apoyo.
+
+* Página Quiénes somos
+
+** Texto base sugerido
+
+#+begin_quote
+SarahMind nace como una plataforma de acompañamiento, educación y gestión orientada a personas que han vivido situaciones de abuso, maltrato o violencia. Su propósito es entregar información confiable, herramientas prácticas y un espacio organizado para el seguimiento profesional de pacientes, respetando la privacidad, la dignidad y el proceso personal de cada usuario.
+#+end_quote
+
+** Secciones recomendadas
+
+- Misión.
+- Visión.
+- Equipo profesional.
+- Enfoque de trabajo.
+- Principios éticos.
+- Confidencialidad.
+- Protección de datos.
+- Forma de acompañamiento.
+
+* Módulo de cursos / e-learning
+
+** Objetivo
+
+Entregar cursos, cápsulas educativas y ejercicios guiados para víctimas, pacientes o redes de apoyo.
+
+** Funcionalidades públicas
+
+- Catálogo de cursos.
+- Página de detalle de cada curso.
+- Objetivo del curso.
+- Módulos.
+- Duración.
+- Nivel.
+- Profesional responsable.
+- Botón de inscripción o acceso.
+
+** Funcionalidades privadas del paciente
+
+- Ver cursos inscritos.
+- Acceder a módulos y lecciones.
+- Registrar avance.
+- Descargar ejercicios.
+- Responder cuestionarios simples.
+- Recibir recomendaciones asignadas por un profesional.
+- Acceder a certificados, si aplica.
+
+** Cursos iniciales sugeridos
+
+- Autocuidado emocional.
+- Reconocimiento de señales de abuso.
+- Regulación emocional.
+- Plan de seguridad personal.
+- Reconstrucción de autoestima.
+- Herramientas para redes de apoyo.
+- Primeros auxilios psicológicos básicos.
+
+** Modelos Rails sugeridos
+
+#+begin_src text
+Course
+CourseModule
+Lesson
+Exercise
+Enrollment
+Progress
+Certificate
+#+end_src
+
+* Tips y ejercicios para víctimas
+
+** Objetivo
+
+Crear una biblioteca de recursos breves, simples y prácticos para personas que necesitan apoyo inicial o complementario.
+
+** Categorías sugeridas
+
+- Respiración.
+- Regulación emocional.
+- Escritura terapéutica.
+- Señales de alerta.
+- Plan de seguridad.
+- Autoestima.
+- Red de apoyo.
+- Límites personales.
+- Orientación para familiares.
+- Recomendaciones de autocuidado.
+
+** Consideración ética
+
+Los ejercicios deben aclarar que no reemplazan terapia, diagnóstico profesional ni atención de emergencia.
+
+Texto sugerido:
+
+#+begin_quote
+Estos ejercicios son recursos de apoyo y orientación general. No reemplazan atención psicológica, médica, jurídica ni asistencia de emergencia.
+#+end_quote
+
+* Noticias y recursos externos
+
+** Objetivo
+
+Publicar información actualizada y confiable sobre violencia, protección, legislación, estudios nacionales y recursos institucionales.
+
+** Categorías sugeridas
+
+- Estudios nacionales.
+- Actualización de leyes.
+- Violencia de género.
+- Protección de datos.
+- Mercosur.
+- América Latina.
+- Organismos internacionales.
+- ONU Mujeres.
+- Recursos de ayuda.
+- Instituciones públicas.
+
+** Recursos externos sugeridos
+
+- ONU Mujeres.
+- Departamento de género de Naciones Unidas.
+- Organismos nacionales de protección a víctimas.
+- Instituciones públicas relacionadas con violencia de género.
+- Estudios nacionales sobre abuso, maltrato o violencia.
+- Actualizaciones legales relevantes.
+
+* Portal de usuario / Backoffice
+
+** Objetivo
+
+Administrar de forma segura los usuarios, pacientes, profesionales, cursos, sesiones, agenda, pagos y documentos internos de SarahMind.
+
+* Roles de usuario
+
+** Administrador de sistema
+
+Perfil con control total de la plataforma.
+
+Funciones:
+
+- Crear usuarios.
+- Administrar roles.
+- Configurar permisos.
+- Revisar auditorías.
+- Gestionar parámetros globales.
+- Configurar integraciones.
+- Administrar seguridad.
+- Acceder a reportes del sistema.
+
+** Administrador
+
+Perfil orientado a la gestión operativa.
+
+Funciones:
+
+- Gestionar pacientes.
+- Administrar agenda.
+- Crear cursos.
+- Publicar noticias.
+- Revisar pagos.
+- Administrar ventas.
+- Emitir boletas.
+- Revisar reportes.
+- Coordinar profesionales.
+
+** Profesional / terapeuta
+
+Perfil recomendado para separar la gestión clínica de la administración general.
+
+Funciones:
+
+- Ver pacientes asignados.
+- Crear notas clínicas.
+- Revisar ficha del paciente.
+- Programar sesiones.
+- Asignar ejercicios.
+- Recomendar cursos.
+- Registrar avances.
+- Mantener historial de atención.
+
+** Usuario / paciente
+
+Perfil privado para personas atendidas.
+
+Funciones:
+
+- Ver su perfil.
+- Revisar sesiones agendadas.
+- Acceder a cursos asignados.
+- Revisar ejercicios recomendados.
+- Descargar documentos propios.
+- Acceder a links de Google Meet.
+- Ver historial básico de atención, si corresponde.
+
+* Dashboard administrador
+
+** Objetivo
+
+Entregar una vista rápida del estado general de la plataforma.
+
+** Indicadores sugeridos
+
+- Total de pacientes.
+- Pacientes activos.
+- Pacientes nuevos del mes.
+- Sesiones programadas.
+- Sesiones realizadas.
+- Sesiones pendientes.
+- Cursos activos.
+- Ventas del mes.
+- Boletas emitidas.
+- Pagos pendientes.
+- Próximas atenciones.
+- Alertas administrativas.
+
+** Componentes visuales
+
+- Tarjetas resumen.
+- Calendario del día.
+- Lista de pacientes próximos.
+- Accesos rápidos.
+- Estado financiero básico.
+- Últimas noticias publicadas.
+- Cursos más utilizados.
+- Alertas de seguimiento.
+
+* Gestión de pacientes
+
+** Objetivo
+
+Permitir la administración segura de pacientes, datos personales, ficha clínica, historial y documentación asociada.
+
+** Campos sugeridos
+
+| Campo                         | Tipo de dato                   |
+|-------------------------------+--------------------------------|
+| Nombre completo               | Texto                          |
+| RUT / documento               | Texto                          |
+| Edad                          | Número                         |
+| Fecha de nacimiento           | Fecha                          |
+| Email                         | Texto                          |
+| Teléfono                      | Texto                          |
+| Dirección                     | Texto opcional                 |
+| Foto                          | Archivo                        |
+| Ficha clínica                 | Texto protegido / documento    |
+| Información adicional         | Texto protegido                |
+| Estado del paciente           | Activo / pausado / cerrado     |
+| Profesional asignado          | Relación                       |
+| Consentimiento informado      | Documento                      |
+| Contacto de emergencia        | Texto                          |
+| Observaciones sensibles       | Texto protegido                |
+
+** Consideraciones críticas
+
+La ficha clínica y los documentos personales deben tratarse como información sensible.
+
+Se recomienda implementar:
+
+- Acceso por rol.
+- Auditoría de lectura y modificación.
+- Historial de cambios.
+- Cifrado de campos sensibles.
+- Consentimiento informado.
+- Políticas de retención de datos.
+- Separación entre datos administrativos y datos clínicos.
+
+* Agenda de pacientes
+
+** Objetivo
+
+Gestionar sesiones, citas y reuniones con pacientes, integrando Google Calendar y Google Meet.
+
+** Flujo funcional sugerido
+
+1. El administrador o profesional crea una sesión.
+2. Se selecciona el paciente.
+3. Se define fecha, hora y duración.
+4. Rails crea un evento en Google Calendar.
+5. Rails solicita la generación de un enlace de Google Meet.
+6. El paciente recibe una notificación por email.
+7. La sesión queda registrada en el historial del paciente.
+8. El profesional puede registrar notas posteriores a la sesión.
+
+** Campos de una sesión
+
+| Campo                  | Descripción                         |
+|------------------------+-------------------------------------|
+| Paciente               | Usuario asociado                    |
+| Profesional            | Profesional responsable             |
+| Fecha                  | Día de la sesión                    |
+| Hora de inicio         | Hora inicial                        |
+| Hora de término        | Hora final                          |
+| Modalidad              | Online / presencial / mixta         |
+| Link Google Meet       | URL de reunión                      |
+| Estado                 | Programada / realizada / cancelada  |
+| Observaciones          | Texto interno                       |
+| Nota posterior         | Registro del profesional            |
+
+* Esquemas de sesiones / Programación del paciente
+
+** Objetivo
+
+Crear una estructura de seguimiento individual para cada paciente, permitiendo definir objetivos, sesiones, ejercicios, avances y alertas.
+
+** Modelo sugerido
+
+El esquema de sesiones puede funcionar como un canvas de acompañamiento o plan de atención.
+
+** Componentes del esquema
+
+- Objetivo general del proceso.
+- Motivo de consulta.
+- Etapa actual.
+- Objetivos de corto plazo.
+- Objetivos de mediano plazo.
+- Sesiones programadas.
+- Ejercicios asignados.
+- Cursos recomendados.
+- Avances observados.
+- Alertas o riesgos.
+- Cierre del proceso.
+
+** Modelos Rails sugeridos
+
+#+begin_src text
+CarePlan
+SessionPlan
+PatientGoal
+AssignedExercise
+ClinicalNote
+RiskAlert
+#+end_src
+
+* Módulo de contabilidad
+
+** Objetivo
+
+Registrar pagos, servicios, movimientos y reportes financieros internos.
+
+** Funcionalidades sugeridas
+
+- Registro de servicios.
+- Registro de pagos.
+- Estado de pago.
+- Medio de pago.
+- Historial de transacciones.
+- Reporte mensual.
+- Exportación contable.
+- Asociación paciente-servicio-pago.
+- Control de pagos pendientes.
+
+** Modelos Rails sugeridos
+
+#+begin_src text
+Service
+Payment
+PaymentMethod
+AccountingEntry
+Invoice
+#+end_src
+
+* Módulo de ventas y boletas
+
+** Objetivo
+
+Gestionar la venta de cursos, sesiones, paquetes o servicios, permitiendo emitir comprobantes o boletas.
+
+** Flujo sugerido
+
+1. Se vende un curso, sesión o paquete.
+2. Se registra el pago.
+3. Se genera comprobante interno.
+4. Se emite boleta mediante integración externa o proceso definido.
+5. Se asocia la boleta al usuario o paciente.
+6. Se envía comprobante por email.
+7. El documento queda disponible en el portal.
+
+** Consideraciones
+
+La emisión de boletas puede implementarse en una fase posterior mediante:
+
+- Integración directa con SII.
+- Proveedor externo de facturación electrónica.
+- API de documentos tributarios.
+- Exportación contable.
+
+* Arquitectura técnica propuesta
+
+** Stack base
+
+- Ruby on Rails.
+- PostgreSQL.
+- Hotwire / Turbo / Stimulus.
+- Tailwind CSS.
+- Active Storage.
+- Action Mailer.
+- Jobs en background.
+- Integración Google Calendar.
+- Integración Google Meet.
+- Sistema de roles y permisos.
+- Auditoría de acciones.
+- Backoffice administrativo.
+
+** Gems o componentes posibles
+
+#+begin_src text
+devise
+pundit
+paper_trail
+active_storage_validations
+sidekiq o solid_queue
+pg
+tailwindcss-rails
+hotwire-rails
+google-api-client
+discard
+ransack
+pagy
+#+end_src
+
+** Alternativas para backoffice
+
+- Backoffice propio en Rails.
+- ActiveAdmin.
+- Avo.
+- Administrate.
+- Rails + Hotwire personalizado.
+
+Para una plataforma sensible, se recomienda evaluar cuidadosamente el uso de paneles automáticos, ya que pueden exponer más información de la necesaria si no se configuran bien los permisos.
+
+* Modelos principales sugeridos
+
+#+begin_src text
+User
+Role
+PatientProfile
+ProfessionalProfile
+ClinicalRecord
+ClinicalNote
+CarePlan
+Session
+Appointment
+Course
+CourseModule
+Lesson
+Exercise
+Enrollment
+Progress
+NewsArticle
+Category
+Payment
+Invoice
+Service
+AuditLog
+ConsentDocument
+Attachment
+Notification
+#+end_src
+
+* Seguridad y privacidad
+
+** Principios generales
+
+La plataforma debe considerar seguridad desde el diseño, especialmente porque puede administrar datos personales y clínicos.
+
+** Reglas mínimas recomendadas
+
+- No mostrar información clínica en listados generales.
+- No permitir acceso libre a fichas sensibles.
+- Registrar auditoría de acceso a fichas clínicas.
+- Separar datos administrativos de datos clínicos.
+- Cifrar campos sensibles.
+- Usar autenticación segura.
+- Aplicar autorización por roles.
+- No enviar detalles clínicos por correo electrónico.
+- No reutilizar enlaces de Google Meet entre pacientes.
+- Mantener trazabilidad de cambios relevantes.
+- Solicitar consentimiento informado.
+- Definir política de eliminación y retención de datos.
+
+** Auditoría
+
+Eventos que deberían quedar auditados:
+
+- Inicio de sesión.
+- Lectura de ficha clínica.
+- Edición de datos sensibles.
+- Descarga de documentos.
+- Creación de sesiones.
+- Cancelación de sesiones.
+- Cambio de profesional asignado.
+- Emisión de documentos.
+- Cambios de rol o permisos.
+
+* Módulos MVP recomendados
+
+** MVP 1: Sitio público
+
+Incluye:
+
+- Inicio.
+- Quiénes somos.
+- Cursos.
+- Tips y ejercicios.
+- Noticias.
+- Recursos de ayuda.
+- Contacto.
+- Login.
+
+** MVP 2: Backoffice base
+
+Incluye:
+
+- Login seguro.
+- Roles.
+- Dashboard administrador.
+- Gestión de pacientes.
+- Ficha paciente.
+- Adjuntar documentos.
+- Notas internas.
+- Auditoría básica.
+
+** MVP 3: Agenda
+
+Incluye:
+
+- Crear sesión.
+- Integración con Google Calendar.
+- Generación de Google Meet.
+- Notificaciones por email.
+- Vista calendario.
+
+** MVP 4: E-learning
+
+Incluye:
+
+- Cursos.
+- Módulos.
+- Lecciones.
+- Ejercicios.
+- Progreso del paciente.
+
+** MVP 5: Ventas y contabilidad
+
+Incluye:
+
+- Servicios.
+- Pagos.
+- Boletas.
+- Reportes.
+- Exportación contable.
+
+* Backlog inicial
+
+| Prioridad | Funcionalidad                         | Módulo               |
+|-----------+---------------------------------------+----------------------|
+| Alta      | Login y autenticación                 | Seguridad            |
+| Alta      | Roles y permisos                      | Seguridad            |
+| Alta      | Sitio público institucional           | Web pública          |
+| Alta      | Gestión de pacientes                  | Backoffice           |
+| Alta      | Ficha clínica protegida               | Backoffice           |
+| Alta      | Auditoría de accesos                  | Seguridad            |
+| Alta      | Agenda de sesiones                    | Agenda               |
+| Media     | Google Calendar + Meet                | Integraciones        |
+| Media     | Cursos e-learning                     | Educación            |
+| Media     | Biblioteca de ejercicios              | Educación            |
+| Media     | Noticias y recursos                   | Contenido            |
+| Media     | Pagos                                 | Administración       |
+| Baja      | Boleta electrónica                    | Ventas               |
+| Baja      | Certificados                          | E-learning           |
+| Baja      | Reportes avanzados                    | Administración       |
+
+* Riesgos iniciales
+
+** Riesgo de privacidad
+
+La plataforma puede manejar información sensible. Si no se definen permisos, auditoría y cifrado desde el inicio, existe riesgo legal, reputacional y ético.
+
+** Riesgo de alcance
+
+El proyecto combina web pública, e-learning, backoffice clínico, agenda, contabilidad y ventas. Se recomienda avanzar por fases para evitar construir demasiados módulos al mismo tiempo.
+
+** Riesgo de uso clínico indebido
+
+Los contenidos educativos y ejercicios no deben presentarse como reemplazo de terapia, diagnóstico o atención profesional.
+
+** Riesgo operativo
+
+La integración con Google Calendar, Google Meet y emisión de boletas puede requerir permisos, APIs, credenciales y validaciones externas.
+
+* Recomendación de implementación
+
+Se recomienda implementar SarahMind.cl en fases.
+
+Primero se debe construir una base sólida con sitio público, autenticación, roles, gestión de pacientes y ficha protegida.
+
+Luego se debe incorporar agenda con Google Calendar y Google Meet.
+
+Posteriormente se debe desarrollar el módulo e-learning, seguido por ventas, pagos, boletas y contabilidad.
+
+La prioridad inicial debe estar en la seguridad, la confianza y el correcto manejo de datos personales y clínicos.
+
+* Conclusión
+
+SarahMind.cl puede desarrollarse como una plataforma integral en Ruby on Rails, combinando información pública, educación digital y gestión privada de pacientes.
+
+El valor principal de la plataforma no está solamente en publicar contenido, sino en ofrecer un ecosistema seguro, cálido y organizado para acompañar a personas que han vivido situaciones de abuso, maltrato o violencia.
+
+Para lograrlo, el diseño debe priorizar la privacidad, la trazabilidad, la claridad comunicacional, la protección de datos y una experiencia humana. Rails es una base adecuada para este tipo de proyecto, ya que permite construir rápidamente módulos administrativos, gestión de usuarios, contenido, cursos, agenda e integraciones externas.
