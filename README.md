@@ -1,57 +1,58 @@
 # SarahMind WebApp
 
-Base inicial de desarrollo para la plataforma `sarahmind.cl`, construida a partir del alcance definido en `literate.org`.
+Aplicación Ruby on Rails para **SarahMind.cl**: sitio público informativo y portal privado (ver alcance en `literate.org` y `docs/mvp-backlog.md`).
 
-## Objetivo del repositorio
+## Requisitos
 
-Implementar una webapp en Ruby on Rails con dos productos conectados:
+- Ruby **3.3.11** (ver `.ruby-version`)
+- PostgreSQL **16+**
+- Node.js **20+** y **Yarn** (assets: esbuild + Tailwind)
 
-- Sitio publico informativo y educativo.
-- Portal privado para gestion clinica/operativa con control de acceso por roles.
+O bien solo **Docker** + Docker Compose.
 
-## Alcance inicial (MVP)
+## Configuración rápida (local)
 
-- **MVP 1 (Publico):** Inicio, Quienes somos, Cursos, Tips y ejercicios, Noticias, Recursos de ayuda, Contacto, Login.
-- **MVP 2 (Backoffice base):** Login seguro, roles, dashboard, gestion de pacientes, ficha protegida, adjuntos, notas internas, auditoria basica.
+```bash
+cp .env.example .env
+# Ajustar DATABASE_* si tu Postgres no usa usuario/clave por defecto
 
-El detalle funcional y estrategico de largo plazo esta en `literate.org`.
+bundle install
+yarn install
+bin/rails db:create db:migrate
+bin/dev
+```
 
-## Estructura inicial
+Abre `http://localhost:3000`. La raíz muestra una página de inicio base con layout y estilos alineados a la identidad sugerida.
 
-- `docs/architecture.md`: arquitectura tecnica, decisiones base y seguridad inicial.
-- `docs/domain-model.md`: entidades principales y relaciones.
-- `docs/mvp-backlog.md`: backlog priorizado para ejecucion por iteraciones.
-- `Gemfile`, `Dockerfile`, `docker-compose.yml`: base para iniciar una app Rails en contenedor.
+## Docker (desarrollo)
 
-## Inicio rapido (Docker)
+```bash
+docker compose build
+docker compose run --rm web bin/rails db:create db:migrate
+docker compose up
+```
 
-1. Construir imagen:
+Variables de base de datos para el servicio `web` están definidas en `docker-compose.yml` (`DATABASE_HOST=db`, etc.).
 
-   `docker compose build`
+El servicio `web` monta un volumen dedicado para `node_modules`, así los binarios de **esbuild** y **Tailwind** corresponden a Linux dentro del contenedor (evita errores si en el Mac también tienes `npm install`).
 
-2. Crear app Rails en el repo (primera vez):
+Tras cambiar `Gemfile` o `Gemfile.lock`, vuelve a construir la imagen: `docker compose build web`.
 
-   `docker compose run --rm web rails new . --force --database=postgresql --css=tailwind --javascript=esbuild`
+## Entornos
 
-3. Levantar servicios:
+- **development / test:** conexión PostgreSQL vía `config/database.yml` y variables `DATABASE_*` (o `DATABASE_URL` en CI).
+- **production:** usar `DATABASE_NAME`, `DATABASE_USER` y `APP_DATABASE_PASSWORD` (o `DATABASE_PASSWORD`) según tu despliegue; credenciales sensibles en el proveedor o `RAILS_MASTER_KEY` + credentials.
 
-   `docker compose up`
+## CI
 
-4. Crear y migrar base de datos:
+GitHub Actions (`.github/workflows/ci.yml`): Brakeman, RuboCop (omakase) y tests con Postgres.
 
-   `docker compose run --rm web bin/rails db:create db:migrate`
+## Documentación del proyecto
 
-## Seguridad (linea base)
+- `docs/architecture.md` — arquitectura y seguridad base
+- `docs/domain-model.md` — modelo de dominio inicial
+- `docs/mvp-backlog.md` — backlog por sprints
 
-- Autenticacion con `devise`.
-- Autorizacion por politicas con `pundit`.
-- Auditoria de cambios y accesos con `paper_trail` y/o tabla de eventos propia.
-- Separacion de datos administrativos vs clinicos.
-- Evitar exponer datos clinicos en listados generales.
+## Imagen de producción
 
-## Siguientes pasos recomendados
-
-1. Inicializar la app Rails con los comandos del inicio rapido.
-2. Implementar autenticacion + roles.
-3. Crear modulo de pacientes con campos sensibles protegidos.
-4. Agregar auditoria de lectura/edicion para ficha clinica.
+El `Dockerfile` en la raíz es el generado por Rails para despliegue (p. ej. Kamal). Para desarrollo día a día se usa `Dockerfile.dev` con `docker compose`.

@@ -1,0 +1,23 @@
+# PostgreSQL. Variables vía entorno (ver .env.example y docker-compose).
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  username: <%= ENV.fetch("DATABASE_USER", "postgres") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "sarahmind_development") %>
+
+# La base "test" se recrea desde esquema; no uses el mismo nombre que development.
+test:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_TEST_NAME", "sarahmind_test") %>
+
+production:
+  <<: *default
+  database: <%= ENV.fetch("DATABASE_NAME", "sarahmind_production") %>
+  username: <%= ENV.fetch("DATABASE_USER", "sarahmind") %>
+  password: <%= ENV["APP_DATABASE_PASSWORD"].presence || ENV["DATABASE_PASSWORD"] %>

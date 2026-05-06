@@ -11,19 +11,24 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   web:
-    build: .
-    command: bash -lc "if [ -f bin/rails ]; then bin/rails server -b 0.0.0.0; else echo 'Pendiente: ejecutar rails new'; sleep infinity; fi"
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     volumes:
       - .:/app
+      # Evita mezclar binarios de esbuild (macOS) con el contenedor Linux
+      - web_node_modules:/app/node_modules
     ports:
       - "3000:3000"
     environment:
       DATABASE_HOST: db
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgres
+      DATABASE_NAME: sarahmind_development
       RAILS_ENV: development
     depends_on:
       - db
 
 volumes:
   postgres_data:
+  web_node_modules:

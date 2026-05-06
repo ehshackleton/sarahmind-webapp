@@ -2,11 +2,11 @@
 
 ## Sprint 0 - Fundaciones tecnicas
 
-- [ ] Inicializar app Rails con PostgreSQL.
-- [ ] Configurar entornos (`development`, `test`, `production`).
-- [ ] Integrar Tailwind + layout base.
-- [ ] Configurar CI minima (tests + lint).
-- [ ] Definir variables de entorno y credenciales.
+- [x] Inicializar app Rails con PostgreSQL.
+- [x] Configurar entornos (`development`, `test`, `production`).
+- [x] Integrar Tailwind + layout base.
+- [x] Configurar CI minima (tests + lint).
+- [x] Definir variables de entorno y credenciales.
 
 ## Sprint 1 - Seguridad y acceso
 
