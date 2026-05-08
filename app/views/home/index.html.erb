@@ -6,11 +6,12 @@
     Acompañamiento, orientación y herramientas para personas que han vivido abuso, maltrato o violencia.
   </h1>
   <p class="mt-4 max-w-2xl text-lg text-sarah-muted">
-    Esta es la base técnica del sitio público. Aquí irán los bloques de inicio, recursos y accesos definidos en el MVP.
+    Recursos claros y prácticos para víctimas, sobrevivientes y redes de apoyo, con acceso simple a cursos,
+    contenidos y orientación.
   </p>
   <div class="mt-8 flex flex-wrap gap-3">
-    <%= link_to "Solicitar orientación", "#", class: "inline-flex items-center justify-center rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sarah-calm/90 focus:outline-none focus:ring-2 focus:ring-sarah-calm focus:ring-offset-2" %>
-    <%= link_to "Ver cursos", "#", class: "inline-flex items-center justify-center rounded-full border border-sarah-border bg-sarah-surface px-5 py-2.5 text-sm font-medium text-sarah-ink transition hover:border-sarah-calm/40 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sarah-calm focus:ring-offset-2" %>
+    <%= link_to "Solicitar orientación", contact_path, class: "inline-flex items-center justify-center rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sarah-calm/90 focus:outline-none focus:ring-2 focus:ring-sarah-calm focus:ring-offset-2" %>
+    <%= link_to "Ver cursos", courses_path, class: "inline-flex items-center justify-center rounded-full border border-sarah-border bg-sarah-surface px-5 py-2.5 text-sm font-medium text-sarah-ink transition hover:border-sarah-calm/40 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sarah-calm focus:ring-offset-2" %>
     <%= link_to "Portal de usuario", (user_signed_in? ? portal_root_path : new_user_session_path), class: "inline-flex items-center justify-center rounded-full border border-transparent px-5 py-2.5 text-sm font-medium text-sarah-accent underline-offset-4 hover:underline" %>
   </div>
 </section>
@@ -21,4 +22,22 @@
     Busca ayuda urgente o comunícate con los canales oficiales de tu país. En Chile puedes contactar, por ejemplo, el
     <span class="font-medium">Fono 1455</span> (orientación en violencia contra las mujeres).
   </p>
+</section>
+
+<section class="mt-8 grid gap-4 md:grid-cols-3">
+  <article class="rounded-xl border border-sarah-border bg-white p-5 shadow-sm">
+    <h3 class="font-semibold text-sarah-ink">Aprende y avanza</h3>
+    <p class="mt-2 text-sm text-sarah-muted">Cursos breves sobre autocuidado, regulación emocional y redes de apoyo.</p>
+    <%= link_to "Ver catálogo", courses_path, class: "mt-3 inline-block text-sm font-medium text-sarah-calm hover:underline" %>
+  </article>
+  <article class="rounded-xl border border-sarah-border bg-white p-5 shadow-sm">
+    <h3 class="font-semibold text-sarah-ink">Tips y ejercicios</h3>
+    <p class="mt-2 text-sm text-sarah-muted">Biblioteca práctica para apoyo inicial y continuidad entre sesiones.</p>
+    <%= link_to "Explorar recursos", tips_path, class: "mt-3 inline-block text-sm font-medium text-sarah-calm hover:underline" %>
+  </article>
+  <article class="rounded-xl border border-sarah-border bg-white p-5 shadow-sm">
+    <h3 class="font-semibold text-sarah-ink">Noticias y recursos</h3>
+    <p class="mt-2 text-sm text-sarah-muted">Actualización de estudios, leyes y canales institucionales confiables.</p>
+    <%= link_to "Ver noticias", news_path, class: "mt-3 inline-block text-sm font-medium text-sarah-calm hover:underline" %>
+  </article>
 </section>

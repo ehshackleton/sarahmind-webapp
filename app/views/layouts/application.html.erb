@@ -30,9 +30,11 @@
         <% end %>
         <nav aria-label="Principal" class="hidden items-center gap-6 text-sm font-medium text-sarah-muted md:flex">
           <%= link_to "Inicio", root_path, class: "hover:text-sarah-ink" %>
-          <%= link_to "Quiénes somos", "#", class: "hover:text-sarah-ink" %>
-          <%= link_to "Cursos", "#", class: "hover:text-sarah-ink" %>
-          <%= link_to "Contacto", "#", class: "hover:text-sarah-ink" %>
+          <%= link_to "Quiénes somos", about_path, class: "hover:text-sarah-ink" %>
+          <%= link_to "Cursos", courses_path, class: "hover:text-sarah-ink" %>
+          <%= link_to "Tips y ejercicios", tips_path, class: "hover:text-sarah-ink" %>
+          <%= link_to "Noticias y recursos", news_path, class: "hover:text-sarah-ink" %>
+          <%= link_to "Contacto", contact_path, class: "hover:text-sarah-ink" %>
           <% if user_signed_in? %>
             <%= link_to "Portal", portal_root_path, class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
             <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "text-sarah-muted hover:text-sarah-ink" %>

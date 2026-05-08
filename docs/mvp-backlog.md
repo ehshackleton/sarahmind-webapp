@@ -18,12 +18,12 @@
 
 ## Sprint 2 - Sitio publico (MVP 1)
 
-- [ ] Home con hero, bloque de seguridad y recursos principales.
-- [ ] Pagina "Quienes somos".
-- [ ] Catalogo basico de cursos.
-- [ ] Seccion de tips y ejercicios.
-- [ ] Seccion de noticias y recursos.
-- [ ] Pagina de contacto.
+- [x] Home con hero, bloque de seguridad y recursos principales.
+- [x] Pagina "Quienes somos".
+- [x] Catalogo basico de cursos.
+- [x] Seccion de tips y ejercicios.
+- [x] Seccion de noticias y recursos.
+- [x] Pagina de contacto.
 
 ## Sprint 3 - Backoffice base (MVP 2)
 

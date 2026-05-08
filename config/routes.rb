@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [ :registrations ]
 
+  get "quienes-somos", to: "public#about", as: :about
+  get "cursos", to: "public#courses", as: :courses
+  get "tips-ejercicios", to: "public#tips", as: :tips
+  get "noticias-recursos", to: "public#news", as: :news
+  get "contacto", to: "public#contact", as: :contact
+
   namespace :portal do
     root to: "dashboard#show"
   end
