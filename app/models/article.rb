@@ -11,6 +11,7 @@ class Article < ApplicationRecord
   scope :random_order, -> { order(Arel.sql("RANDOM()")) }
 
   before_validation :normalize_slug
+  before_validation :normalize_legacy_body
   before_validation :set_published_at
 
   validates :title, presence: true
@@ -33,7 +34,11 @@ class Article < ApplicationRecord
 
   def set_published_at
     return unless status_published?
-    self.published_at ||= Time.current
+    self.published_at = Time.current if published_at.blank? || published_at.future?
+  end
+
+  def normalize_legacy_body
+    self.body = "" if body.nil?
   end
 
   def content_presence

@@ -41,12 +41,30 @@ class ArticleTest < ActiveSupport::TestCase
     article = Article.new(
       title: "Guía con formato",
       excerpt: "Resumen",
-      body: "",
+      body: nil,
       status: "draft",
       author: users(:professional)
     )
     article.rich_body = "<div><strong>Texto con negrita</strong> y <em>cursiva</em></div>"
 
     assert article.valid?
+    assert_equal "", article.body
+  end
+
+  test "si published_at está en futuro y status es published se normaliza a ahora" do
+    future_time = 2.hours.from_now
+    article = Article.new(
+      title: "Publicación inmediata",
+      excerpt: "Resumen",
+      body: "Contenido",
+      status: "published",
+      author: users(:professional),
+      published_at: future_time
+    )
+
+    freeze_time do
+      assert article.valid?
+      assert_in_delta Time.current.to_f, article.published_at.to_f, 1.0
+    end
   end
 end
