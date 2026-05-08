@@ -16,6 +16,10 @@ class PatientPolicy < ApplicationPolicy
     user&.backoffice_role? && visible_to_user?
   end
 
+  def download_document?
+    show?
+  end
+
   def create?
     user&.role_system_admin? || user&.role_admin?
   end

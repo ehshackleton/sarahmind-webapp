@@ -1,0 +1,55 @@
+<% content_for :title, "Sesión — Portal" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
+  <div class="flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Sesión terapéutica</h1>
+      <p class="mt-1 text-sm text-sarah-muted">
+        <%= t("therapy_session.statuses.#{@therapy_session.status}") %> ·
+        <%= l(@therapy_session.starts_at, format: :long) %> — <%= l(@therapy_session.ends_at, format: :long) %>
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <% if policy(@therapy_session).update? %>
+        <%= link_to "Editar", edit_portal_therapy_session_path(@therapy_session), class: "text-sm text-sarah-calm hover:underline" %>
+      <% end %>
+      <% if policy(@therapy_session).destroy? %>
+        <%= button_to "Eliminar",
+                      portal_therapy_session_path(@therapy_session),
+                      method: :delete,
+                      data: { turbo_confirm: "¿Eliminar esta sesión?" },
+                      class: "text-sm text-red-700 hover:underline" %>
+      <% end %>
+    </div>
+  </div>
+
+  <dl class="mt-6 grid gap-4 text-sm md:grid-cols-2">
+    <div>
+      <dt class="text-sarah-muted">Paciente</dt>
+      <dd class="mt-1 font-medium text-sarah-ink">
+        <%= link_to @therapy_session.patient.full_name, portal_patient_path(@therapy_session.patient), class: "text-sarah-calm hover:underline" %>
+      </dd>
+    </div>
+    <div>
+      <dt class="text-sarah-muted">Profesional</dt>
+      <dd class="mt-1 text-sarah-ink"><%= @therapy_session.professional.email %></dd>
+    </div>
+  </dl>
+
+  <% if @therapy_session.notes.present? %>
+    <article class="mt-6 rounded-xl border border-sarah-border bg-sarah-surface p-4">
+      <h2 class="text-sm font-semibold text-sarah-ink">Notas</h2>
+      <p class="mt-2 whitespace-pre-line text-sm text-sarah-muted"><%= @therapy_session.notes %></p>
+    </article>
+  <% end %>
+
+  <% if @therapy_session.google_calendar_event_id.present? %>
+    <p class="mt-4 text-xs text-sarah-muted">
+      Sincronizado con Google Calendar (id: <%= @therapy_session.google_calendar_event_id %>).
+    </p>
+  <% end %>
+
+  <div class="mt-6 flex flex-wrap gap-4">
+    <%= link_to "Listado de sesiones", portal_therapy_sessions_path, class: "text-sm text-sarah-muted hover:underline" %>
+  </div>
+</section>

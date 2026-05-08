@@ -43,10 +43,10 @@
 
 ## Sprint 5 - Agenda base
 
-- [ ] CRUD de sesiones.
-- [ ] Estados de sesion (programada, realizada, cancelada).
-- [ ] Notificacion por correo al paciente.
-- [ ] Integracion inicial con Google Calendar.
+- [x] CRUD de sesiones.
+- [x] Estados de sesion (programada, realizada, cancelada).
+- [x] Notificacion por correo al paciente.
+- [x] Integracion inicial con Google Calendar.
 
 ## Criterios de aceptacion transversales
 

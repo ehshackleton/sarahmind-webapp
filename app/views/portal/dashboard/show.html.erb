@@ -22,7 +22,11 @@
     </article>
   </div>
 
-  <div class="mt-4 grid gap-4 md:grid-cols-2">
+  <div class="mt-4 grid gap-4 md:grid-cols-3">
+    <article class="rounded-xl border border-sarah-border bg-white p-4">
+      <p class="text-xs uppercase tracking-wide text-sarah-muted">Sesiones próximas</p>
+      <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:upcoming_sessions] %></p>
+    </article>
     <article class="rounded-xl border border-sarah-border bg-white p-4">
       <p class="text-xs uppercase tracking-wide text-sarah-muted">Notas internas</p>
       <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:clinical_notes] %></p>
@@ -34,8 +38,10 @@
   </div>
 
   <div class="mt-6">
+    <%= link_to "Agenda de sesiones", portal_therapy_sessions_path,
+                class: "inline-flex items-center justify-center rounded-full border border-sarah-border bg-white px-5 py-2.5 text-sm font-medium text-sarah-ink shadow-sm transition hover:bg-sarah-surface" %>
     <%= link_to "Ir a pacientes", portal_patients_path,
-                class: "inline-flex items-center justify-center rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sarah-calm/90" %>
+                class: "ml-2 inline-flex items-center justify-center rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sarah-calm/90" %>
     <% if current_user.role_system_admin? %>
       <%= link_to "Auditoría", portal_audit_events_path,
                   class: "ml-2 inline-flex items-center justify-center rounded-full border border-sarah-border bg-white px-5 py-2.5 text-sm font-medium text-sarah-ink shadow-sm transition hover:bg-sarah-surface" %>

@@ -1,6 +1,14 @@
 es:
   pundit:
     not_authorized: "No estás autorizado para realizar esta acción."
+  patient_mailer:
+    therapy_session_scheduled:
+      subject: "SarahMind — Sesión programada para %{patient_name}"
+  therapy_session:
+    statuses:
+      scheduled: Programada
+      completed: Realizada
+      cancelled: Cancelada
   user:
     roles:
       patient: "Paciente"

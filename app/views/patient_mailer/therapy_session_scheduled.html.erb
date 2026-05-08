@@ -1,0 +1,20 @@
+<p>Hola <%= @patient.full_name %>,</p>
+
+<p>
+  Tienes una sesión <strong>programada</strong> en SarahMind:
+</p>
+
+<ul>
+  <li><strong>Inicio:</strong> <%= l(@therapy_session.starts_at, format: :long) %></li>
+  <li><strong>Fin:</strong> <%= l(@therapy_session.ends_at, format: :long) %></li>
+  <li><strong>Profesional:</strong> <%= @therapy_session.professional.email %></li>
+</ul>
+
+<% if @therapy_session.notes.present? %>
+  <p><strong>Nota</strong></p>
+  <%= simple_format(@therapy_session.notes) %>
+<% end %>
+
+<p>Si necesitas reprogramar, contacta con tu profesional.</p>
+
+<p>Saludos,<br>SarahMind</p>

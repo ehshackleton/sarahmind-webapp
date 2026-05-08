@@ -29,3 +29,11 @@
 
 en:
   hello: "Hello world"
+  patient_mailer:
+    therapy_session_scheduled:
+      subject: "SarahMind — Scheduled session for %{patient_name}"
+  therapy_session:
+    statuses:
+      scheduled: Scheduled
+      completed: Completed
+      cancelled: Cancelled

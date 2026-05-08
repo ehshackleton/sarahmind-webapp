@@ -1,0 +1,46 @@
+<% content_for :title, "Agenda — Portal" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Agenda de sesiones</h1>
+    <% if policy(TherapySession.new).create? %>
+      <%= link_to "Nueva sesión", new_portal_therapy_session_path,
+                  class: "rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-sarah-calm/90" %>
+    <% end %>
+  </div>
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="min-w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-sarah-border text-sarah-muted">
+          <th class="px-2 py-2">Fecha y hora</th>
+          <th class="px-2 py-2">Paciente</th>
+          <th class="px-2 py-2">Profesional</th>
+          <th class="px-2 py-2">Estado</th>
+          <th class="px-2 py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @therapy_sessions.each do |session| %>
+          <tr class="border-b border-sarah-border/70">
+            <td class="px-2 py-3 text-sarah-ink"><%= l(session.starts_at, format: :short) %></td>
+            <td class="px-2 py-3 font-medium text-sarah-ink"><%= session.patient.full_name %></td>
+            <td class="px-2 py-3 text-sarah-muted"><%= session.professional.email %></td>
+            <td class="px-2 py-3"><%= t("therapy_session.statuses.#{session.status}") %></td>
+            <td class="px-2 py-3">
+              <%= link_to "Ver", portal_therapy_session_path(session), class: "text-sarah-calm hover:underline" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if @therapy_sessions.empty? %>
+    <p class="mt-6 text-sm text-sarah-muted">No hay sesiones registradas.</p>
+  <% end %>
+
+  <div class="mt-6">
+    <%= link_to "Volver al portal", portal_root_path, class: "text-sm text-sarah-muted hover:underline" %>
+  </div>
+</section>

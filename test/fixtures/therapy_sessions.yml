@@ -1,0 +1,13 @@
+one:
+  patient: one
+  professional: professional
+  starts_at: 2026-06-15 10:00:00
+  ends_at: 2026-06-15 10:50:00
+  status: scheduled
+
+two:
+  patient: two
+  professional: system_admin
+  starts_at: 2026-06-20 15:00:00
+  ends_at: 2026-06-20 15:50:00
+  status: completed

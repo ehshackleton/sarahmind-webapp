@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_08_031500) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_08_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,22 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_08_031500) do
     t.index ["status"], name: "index_patients_on_status"
   end
 
+  create_table "therapy_sessions", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "professional_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "status", default: "scheduled", null: false
+    t.text "notes"
+    t.string "google_calendar_event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_therapy_sessions_on_patient_id"
+    t.index ["professional_id"], name: "index_therapy_sessions_on_professional_id"
+    t.index ["starts_at"], name: "index_therapy_sessions_on_starts_at"
+    t.index ["status"], name: "index_therapy_sessions_on_status"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -102,4 +118,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_08_031500) do
   add_foreign_key "clinical_notes", "patients"
   add_foreign_key "clinical_notes", "users", column: "professional_id"
   add_foreign_key "patients", "users", column: "professional_id"
+  add_foreign_key "therapy_sessions", "patients"
+  add_foreign_key "therapy_sessions", "users", column: "professional_id"
 end

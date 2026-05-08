@@ -42,6 +42,33 @@
   <% end %>
 
   <article class="mt-4 rounded-xl border border-sarah-border bg-white p-4">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h2 class="font-semibold text-sarah-ink">Sesiones agendadas</h2>
+      <% if policy(TherapySession.new).create? %>
+        <%= link_to "Nueva sesión",
+                    new_portal_therapy_session_path(patient_id: @patient.id),
+                    class: "text-sm text-sarah-calm hover:underline" %>
+      <% end %>
+    </div>
+    <% if @therapy_sessions.any? %>
+      <ul class="mt-3 space-y-2 text-sm text-sarah-muted">
+        <% @therapy_sessions.each do |session| %>
+          <li class="flex flex-wrap items-center justify-between gap-2 border-b border-sarah-border/60 pb-2">
+            <span>
+              <%= l(session.starts_at, format: :short) %> —
+              <%= t("therapy_session.statuses.#{session.status}") %>
+              (<%= session.professional.email %>)
+            </span>
+            <%= link_to "Ver", portal_therapy_session_path(session), class: "text-sarah-calm hover:underline" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="mt-2 text-sm text-sarah-muted">No hay sesiones para este paciente.</p>
+    <% end %>
+  </article>
+
+  <article class="mt-4 rounded-xl border border-sarah-border bg-white p-4">
     <h2 class="font-semibold text-sarah-ink">Documentos adjuntos</h2>
     <% if @patient.documents.attached? %>
       <ul class="mt-2 list-disc pl-5 text-sm text-sarah-muted">

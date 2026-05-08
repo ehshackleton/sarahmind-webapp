@@ -1,0 +1,59 @@
+<%= form_with(model: [ :portal, therapy_session ], class: "space-y-5") do |f| %>
+  <% if therapy_session.errors.any? %>
+    <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+      <p class="font-semibold">Revisa los campos del formulario:</p>
+      <ul class="mt-2 list-disc pl-5">
+        <% therapy_session.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :patient_id, "Paciente", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.collection_select :patient_id,
+                            @patients,
+                            :id, :full_name,
+                            { include_blank: "Selecciona un paciente" },
+                            class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div>
+    <%= f.label :professional_id, "Profesional", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.collection_select :professional_id,
+                            @professionals,
+                            :id, :email,
+                            { include_blank: "Selecciona un profesional" },
+                            class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-2">
+    <div>
+      <%= f.label :starts_at, "Inicio", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+      <%= f.datetime_field :starts_at, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+    </div>
+    <div>
+      <%= f.label :ends_at, "Fin", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+      <%= f.datetime_field :ends_at, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :status, "Estado", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.select :status,
+                 TherapySession.statuses.keys.map { |key| [t("therapy_session.statuses.#{key}"), key] },
+                 {},
+                 class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div>
+    <%= f.label :notes, "Notas (opcional)", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.text_area :notes, rows: 4, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <%= f.submit class: "rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-sarah-calm/90" %>
+    <%= link_to "Volver", portal_therapy_sessions_path, class: "text-sm text-sarah-muted hover:underline" %>
+  </div>
+<% end %>

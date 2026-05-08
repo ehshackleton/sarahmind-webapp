@@ -16,6 +16,11 @@ class User < ApplicationRecord
            inverse_of: :professional,
            dependent: :nullify
   has_many :clinical_notes, foreign_key: :professional_id, inverse_of: :professional, dependent: :nullify
+  has_many :led_therapy_sessions,
+           class_name: "TherapySession",
+           foreign_key: :professional_id,
+           inverse_of: :professional,
+           dependent: :restrict_with_exception
   has_many :audit_events, foreign_key: :actor_id, inverse_of: :actor, dependent: :nullify
 
   def backoffice_role?
