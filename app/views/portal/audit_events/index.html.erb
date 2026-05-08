@@ -1,0 +1,31 @@
+<% content_for :title, "Auditoría — Portal" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
+  <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Auditoría y trazabilidad</h1>
+  <p class="mt-2 text-sm text-sarah-muted">Últimos eventos críticos del sistema.</p>
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="min-w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-sarah-border text-sarah-muted">
+          <th class="px-2 py-2">Fecha</th>
+          <th class="px-2 py-2">Acción</th>
+          <th class="px-2 py-2">Actor</th>
+          <th class="px-2 py-2">Entidad</th>
+          <th class="px-2 py-2">Detalle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @audit_events.each do |event| %>
+          <tr class="border-b border-sarah-border/70">
+            <td class="px-2 py-3 text-sarah-muted"><%= l(event.created_at, format: :short) %></td>
+            <td class="px-2 py-3 font-medium text-sarah-ink"><%= event.action %></td>
+            <td class="px-2 py-3 text-sarah-muted"><%= event.actor&.email || "Sistema" %></td>
+            <td class="px-2 py-3 text-sarah-muted"><%= [event.auditable_type, event.auditable_id].compact.join("#") %></td>
+            <td class="px-2 py-3 text-sarah-muted"><%= event.metadata.presence || "-" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

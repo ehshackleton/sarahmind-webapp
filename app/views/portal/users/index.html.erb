@@ -1,0 +1,35 @@
+<% content_for :title, "Roles — Portal" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
+  <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Gestión de roles</h1>
+  <p class="mt-2 text-sm text-sarah-muted">Solo `system_admin` puede modificar roles de usuario.</p>
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="min-w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-sarah-border text-sarah-muted">
+          <th class="px-2 py-2">Email</th>
+          <th class="px-2 py-2">Rol actual</th>
+          <th class="px-2 py-2">Actualizar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr class="border-b border-sarah-border/70">
+            <td class="px-2 py-3"><%= user.email %></td>
+            <td class="px-2 py-3"><%= user.role %></td>
+            <td class="px-2 py-3">
+              <%= form_with model: [ :portal, user ], method: :patch, class: "flex items-center gap-2" do |f| %>
+                <%= f.select :role,
+                             User.roles.keys.map { |role| [role.humanize, role] },
+                             {},
+                             class: "rounded-lg border border-sarah-border bg-sarah-surface px-3 py-2 text-sm" %>
+                <%= f.submit "Guardar", class: "rounded-full bg-sarah-calm px-4 py-2 text-xs font-medium text-white hover:bg-sarah-calm/90" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

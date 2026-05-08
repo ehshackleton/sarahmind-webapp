@@ -46,7 +46,11 @@
     <% if @patient.documents.attached? %>
       <ul class="mt-2 list-disc pl-5 text-sm text-sarah-muted">
         <% @patient.documents.each do |document| %>
-          <li><%= link_to document.filename.to_s, rails_blob_path(document, disposition: "attachment"), class: "text-sarah-calm hover:underline" %></li>
+          <li>
+            <%= link_to document.filename.to_s,
+                        download_document_portal_patient_path(@patient, attachment_id: document.id),
+                        class: "text-sarah-calm hover:underline" %>
+          </li>
         <% end %>
       </ul>
     <% else %>

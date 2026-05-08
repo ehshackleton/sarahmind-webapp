@@ -35,11 +35,11 @@
 
 ## Sprint 4 - Auditoria y trazabilidad
 
-- [ ] Registrar inicio/cierre de sesion.
-- [ ] Auditar lectura y edicion de ficha clinica.
-- [ ] Auditar descargas de documentos.
-- [ ] Auditar cambios de rol.
-- [ ] Vista de auditoria para `system_admin`.
+- [x] Registrar inicio/cierre de sesion.
+- [x] Auditar lectura y edicion de ficha clinica.
+- [x] Auditar descargas de documentos.
+- [x] Auditar cambios de rol.
+- [x] Vista de auditoria para `system_admin`.
 
 ## Sprint 5 - Agenda base
 

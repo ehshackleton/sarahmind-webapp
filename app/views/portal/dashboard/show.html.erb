@@ -36,5 +36,11 @@
   <div class="mt-6">
     <%= link_to "Ir a pacientes", portal_patients_path,
                 class: "inline-flex items-center justify-center rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sarah-calm/90" %>
+    <% if current_user.role_system_admin? %>
+      <%= link_to "Auditoría", portal_audit_events_path,
+                  class: "ml-2 inline-flex items-center justify-center rounded-full border border-sarah-border bg-white px-5 py-2.5 text-sm font-medium text-sarah-ink shadow-sm transition hover:bg-sarah-surface" %>
+      <%= link_to "Roles", portal_users_path,
+                  class: "ml-2 inline-flex items-center justify-center rounded-full border border-sarah-border bg-white px-5 py-2.5 text-sm font-medium text-sarah-ink shadow-sm transition hover:bg-sarah-surface" %>
+    <% end %>
   </div>
 </section>

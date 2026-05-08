@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_08_025401) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_08_031500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,22 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_08_025401) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "audit_events", force: :cascade do |t|
+    t.bigint "actor_id"
+    t.string "action", null: false
+    t.string "auditable_type"
+    t.bigint "auditable_id"
+    t.jsonb "metadata", default: {}, null: false
+    t.string "ip_address"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action"], name: "index_audit_events_on_action"
+    t.index ["actor_id"], name: "index_audit_events_on_actor_id"
+    t.index ["auditable_type", "auditable_id"], name: "index_audit_events_on_auditable"
+    t.index ["created_at"], name: "index_audit_events_on_created_at"
   end
 
   create_table "clinical_notes", force: :cascade do |t|
@@ -82,6 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_08_025401) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "audit_events", "users", column: "actor_id"
   add_foreign_key "clinical_notes", "patients"
   add_foreign_key "clinical_notes", "users", column: "professional_id"
   add_foreign_key "patients", "users", column: "professional_id"

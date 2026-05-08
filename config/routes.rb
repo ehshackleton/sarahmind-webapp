@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, skip: [ :registrations ]
+  devise_for :users, skip: [ :registrations ], controllers: { sessions: "users/sessions" }
 
   get "quienes-somos", to: "public#about", as: :about
   get "cursos", to: "public#courses", as: :courses
@@ -8,8 +8,13 @@ Rails.application.routes.draw do
   get "contacto", to: "public#contact", as: :contact
 
   namespace :portal do
+    resources :users, only: %i[index update]
+    resources :audit_events, only: :index
     resources :patients do
       resources :clinical_notes, only: :create
+      member do
+        get "documents/:attachment_id/download", to: "patients#download_document", as: :download_document
+      end
     end
     root to: "dashboard#show"
   end

@@ -1,6 +1,6 @@
 module Portal
   class PatientsController < BaseController
-    before_action :set_patient, only: %i[show edit update destroy]
+    before_action :set_patient, only: %i[show edit update destroy download_document]
 
     def index
       @patients = policy_scope(Patient).order(created_at: :desc)
@@ -12,6 +12,7 @@ module Portal
       @can_view_clinical = policy(@patient).clinical_section?
       @clinical_notes = @patient.clinical_notes.includes(:professional).order(created_at: :desc)
       @clinical_note = ClinicalNote.new
+      log_audit!("patient.clinical_read", auditable: @patient) if @can_view_clinical
     end
 
     def new
@@ -37,7 +38,11 @@ module Portal
     def update
       authorize @patient
 
+      sensitive_before = @patient.sensitive_notes
       if @patient.update(patient_params)
+        if policy(@patient).clinical_section? && sensitive_before != @patient.sensitive_notes
+          log_audit!("patient.clinical_update", auditable: @patient)
+        end
         redirect_to portal_patient_path(@patient), notice: "Paciente actualizado."
       else
         render :edit, status: :unprocessable_content
@@ -48,6 +53,13 @@ module Portal
       authorize @patient
       @patient.destroy
       redirect_to portal_patients_path, notice: "Paciente eliminado."
+    end
+
+    def download_document
+      authorize @patient
+      attachment = @patient.documents.attachments.find(params[:attachment_id])
+      log_audit!("patient.document_download", auditable: @patient, metadata: { filename: attachment.filename.to_s })
+      redirect_to rails_blob_path(attachment.blob, disposition: "attachment")
     end
 
     private
