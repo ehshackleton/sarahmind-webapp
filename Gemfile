@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Rails 7.2 + Minitest 6 aún tienen incompatibilidad en line_filtering; fijar 5.x hasta actualización.
-gem "minitest", "~> 5.25"
+gem "minitest", "~> 6.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.3"
