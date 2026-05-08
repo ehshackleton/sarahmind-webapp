@@ -184,4 +184,67 @@
   .sarah-interactive-press:active {
     transform: scale(0.98);
   }
+
+  .sarah-trix-shell trix-toolbar {
+    border: 1px solid var(--color-sarah-border);
+    border-radius: 0.85rem 0.85rem 0 0;
+    border-bottom: none;
+    background: color-mix(in oklab, var(--color-sarah-surface) 88%, white);
+    padding: 0.45rem;
+  }
+
+  .sarah-trix-shell trix-toolbar .trix-button-group {
+    border: none;
+    margin: 0 0.3rem 0.3rem 0;
+  }
+
+  .sarah-trix-shell trix-toolbar .trix-button {
+    border: 1px solid transparent;
+    border-radius: 0.6rem;
+    background: transparent;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    color: var(--color-sarah-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background-color 200ms ease-out,
+      border-color 200ms ease-out,
+      color 200ms ease-out,
+      box-shadow 200ms ease-out;
+  }
+
+  .sarah-trix-shell trix-toolbar .trix-button:hover {
+    background: white;
+    border-color: var(--color-sarah-border);
+    color: var(--color-sarah-ink);
+  }
+
+  .sarah-trix-shell trix-toolbar .trix-button.trix-active {
+    background: var(--color-sarah-calm);
+    border-color: var(--color-sarah-calm);
+    color: white;
+  }
+
+  .sarah-trix-shell trix-toolbar .trix-button:focus-visible {
+    outline: 2px solid var(--color-sarah-calm);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px color-mix(in oklab, var(--color-sarah-calm) 25%, white);
+  }
+
+  .sarah-trix-shell trix-editor {
+    border: 1px solid var(--color-sarah-border);
+    border-radius: 0 0 0.85rem 0.85rem;
+    background: var(--color-sarah-surface);
+    min-height: 14rem;
+    padding: 0.9rem 1rem;
+  }
+
+  .sarah-trix-shell trix-editor a {
+    color: var(--color-sarah-calm);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 }

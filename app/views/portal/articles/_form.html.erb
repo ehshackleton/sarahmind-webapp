@@ -25,7 +25,7 @@
     <%= f.text_area :excerpt, rows: 3, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
   </div>
 
-  <div>
+  <div class="sarah-trix-shell" data-controller="trix-toolbar">
     <%= f.label :body, "Contenido", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
     <%= f.rich_text_area :rich_body, class: "min-h-56 rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
     <p class="mt-1 text-xs text-sarah-muted">Puedes usar negrita, cursiva, listas y enlaces.</p>

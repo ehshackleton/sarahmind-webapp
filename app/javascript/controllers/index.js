@@ -6,6 +6,8 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 import RevealController from "./reveal_controller"
+import TrixToolbarController from "./trix_toolbar_controller"
 
 application.register("hello", HelloController)
 application.register("reveal", RevealController)
+application.register("trix-toolbar", TrixToolbarController)
