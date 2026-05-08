@@ -60,7 +60,7 @@ module Portal
     end
 
     def article_params
-      params.require(:article).permit(:title, :slug, :excerpt, :body, :status, :published_at)
+      params.require(:article).permit(:title, :slug, :excerpt, :body, :rich_body, :status, :published_at)
     end
   end
 end

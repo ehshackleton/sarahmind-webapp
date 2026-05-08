@@ -27,7 +27,8 @@
 
   <div>
     <%= f.label :body, "Contenido", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
-    <%= f.text_area :body, rows: 8, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+    <%= f.rich_text_area :rich_body, class: "min-h-56 rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+    <p class="mt-1 text-xs text-sarah-muted">Puedes usar negrita, cursiva, listas y enlaces.</p>
   </div>
 
   <div class="grid gap-4 md:grid-cols-2">

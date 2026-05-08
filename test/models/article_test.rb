@@ -36,4 +36,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes ids, articles(:published_admin).id
     assert_not_includes ids, articles(:draft_professional).id
   end
+
+  test "permite contenido solo en rich_body sin body legado" do
+    article = Article.new(
+      title: "Guía con formato",
+      excerpt: "Resumen",
+      body: "",
+      status: "draft",
+      author: users(:professional)
+    )
+    article.rich_body = "<div><strong>Texto con negrita</strong> y <em>cursiva</em></div>"
+
+    assert article.valid?
+  end
 end

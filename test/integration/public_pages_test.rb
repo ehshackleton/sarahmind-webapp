@@ -27,10 +27,16 @@ class PublicPagesTest < ActionDispatch::IntegrationTest
   end
 
   test "detalle de noticia publicada responde OK" do
+    articles(:published_professional).update!(
+      body: "",
+      rich_body: "<div><strong>Texto destacado</strong> y <em>cursiva</em></div>"
+    )
+
     get news_article_url(slug: articles(:published_professional).slug)
     assert_response :success
     assert_select "h1", text: articles(:published_professional).title
     assert_match "https://x.com/intent/tweet", response.body
+    assert_match "Texto destacado", response.body
   end
 
   test "contacto responde OK" do

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./actiontext.css";
 
 /* Motion: animaciones suaves; usuarios con prefers-reduced-motion reciben estáticos equivalentes (WCAG 2.1). */
 /* Paleta: tonos cálidos, azul contenido y acento coral — legible y calmado para contexto clínico */

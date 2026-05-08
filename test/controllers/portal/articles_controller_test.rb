@@ -37,12 +37,15 @@ class Portal::ArticlesControllerTest < ActionDispatch::IntegrationTest
           title: "Nuevo recurso práctico",
           slug: "nuevo-recurso-practico",
           excerpt: "Resumen práctico",
-          body: "Contenido detallado",
+          body: "",
+          rich_body: "<div><strong>Contenido</strong> detallado con <em>formato</em>.</div>",
           status: "published"
         }
       }
     end
 
-    assert_equal users(:professional).id, Article.order(created_at: :desc).first.author_id
+    created = Article.order(created_at: :desc).first
+    assert_equal users(:professional).id, created.author_id
+    assert_includes created.rich_body.to_plain_text, "Contenido"
   end
 end

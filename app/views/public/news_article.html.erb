@@ -9,7 +9,11 @@
   <p class="mt-2 text-xs text-sarah-muted">Autor: <%= @article.author.email %></p>
 
   <article class="prose prose-slate mt-6 max-w-none">
-    <%= simple_format(@article.body) %>
+    <% if @article.rich_body? %>
+      <%= @article.rich_body %>
+    <% else %>
+      <%= simple_format(@article.body) %>
+    <% end %>
   </article>
 
   <div class="mt-8 border-t border-sarah-border/70 pt-6">
