@@ -27,11 +27,11 @@
 
 ## Sprint 3 - Backoffice base (MVP 2)
 
-- [ ] Dashboard con metricas iniciales.
-- [ ] CRUD de pacientes.
-- [ ] Vista de ficha paciente con seccion clinica protegida.
-- [ ] Adjuntar documentos con Active Storage.
-- [ ] Notas internas por profesional.
+- [x] Dashboard con metricas iniciales.
+- [x] CRUD de pacientes.
+- [x] Vista de ficha paciente con seccion clinica protegida.
+- [x] Adjuntar documentos con Active Storage.
+- [x] Notas internas por profesional.
 
 ## Sprint 4 - Auditoria y trazabilidad
 

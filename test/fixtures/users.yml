@@ -8,3 +8,13 @@ admin:
   email: admin@example.com
   encrypted_password: <%= ::BCrypt::Password.create("password123", cost: 4) %>
   role: admin
+
+professional:
+  email: professional@example.com
+  encrypted_password: <%= ::BCrypt::Password.create("password123", cost: 4) %>
+  role: professional
+
+system_admin:
+  email: system_admin@example.com
+  encrypted_password: <%= ::BCrypt::Password.create("password123", cost: 4) %>
+  role: system_admin

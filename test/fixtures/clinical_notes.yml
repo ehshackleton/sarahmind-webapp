@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: one
+  professional: professional
+  body: Nota de seguimiento 1
+
+two:
+  patient: two
+  professional: system_admin
+  body: Nota de seguimiento 2

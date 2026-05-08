@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  full_name: Ana Torres
+  email: ana@example.com
+  phone: "+56911111111"
+  status: active
+  summary: Resumen inicial
+  sensitive_notes: Nota clínica sensible
+  professional: professional
+
+two:
+  full_name: María Díaz
+  email: maria@example.com
+  phone: "+56922222222"
+  status: paused
+  summary: Seguimiento mensual
+  sensitive_notes: Observaciones reservadas
+  professional: system_admin

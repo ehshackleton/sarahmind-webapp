@@ -1,5 +1,5 @@
 class PortalPolicy < ApplicationPolicy
   def dashboard?
-    user.present?
+    user&.backoffice_role?
   end
 end

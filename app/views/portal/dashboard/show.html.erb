@@ -6,7 +6,35 @@
     Has iniciado sesión como <span class="font-medium text-sarah-ink"><%= current_user.email %></span>
     (rol: <span class="font-medium text-sarah-ink"><%= t("user.roles.#{current_user.role}") %></span>).
   </p>
-  <p class="mt-4 text-sm text-sarah-muted">
-    Aquí irá el panel de pacientes, agenda y administración según el backlog del MVP.
-  </p>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-3">
+    <article class="rounded-xl border border-sarah-border bg-white p-4">
+      <p class="text-xs uppercase tracking-wide text-sarah-muted">Pacientes totales</p>
+      <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:total_patients] %></p>
+    </article>
+    <article class="rounded-xl border border-sarah-border bg-white p-4">
+      <p class="text-xs uppercase tracking-wide text-sarah-muted">Pacientes activos</p>
+      <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:active_patients] %></p>
+    </article>
+    <article class="rounded-xl border border-sarah-border bg-white p-4">
+      <p class="text-xs uppercase tracking-wide text-sarah-muted">Nuevos este mes</p>
+      <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:new_patients_month] %></p>
+    </article>
+  </div>
+
+  <div class="mt-4 grid gap-4 md:grid-cols-2">
+    <article class="rounded-xl border border-sarah-border bg-white p-4">
+      <p class="text-xs uppercase tracking-wide text-sarah-muted">Notas internas</p>
+      <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:clinical_notes] %></p>
+    </article>
+    <article class="rounded-xl border border-sarah-border bg-white p-4">
+      <p class="text-xs uppercase tracking-wide text-sarah-muted">Pacientes con documentos</p>
+      <p class="mt-1 text-2xl font-semibold text-sarah-ink"><%= @metrics[:documents_attached] %></p>
+    </article>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to "Ir a pacientes", portal_patients_path,
+                class: "inline-flex items-center justify-center rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-sarah-calm/90" %>
+  </div>
 </section>

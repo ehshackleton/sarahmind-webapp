@@ -1,0 +1,36 @@
+<% content_for :title, "Pacientes — Portal" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
+  <div class="flex items-center justify-between gap-3">
+    <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Pacientes</h1>
+    <% if policy(Patient).create? %>
+      <%= link_to "Nuevo paciente", new_portal_patient_path,
+                  class: "rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-sarah-calm/90" %>
+    <% end %>
+  </div>
+
+  <div class="mt-6 overflow-x-auto">
+    <table class="min-w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-sarah-border text-sarah-muted">
+          <th class="px-2 py-2">Nombre</th>
+          <th class="px-2 py-2">Estado</th>
+          <th class="px-2 py-2">Profesional</th>
+          <th class="px-2 py-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @patients.each do |patient| %>
+          <tr class="border-b border-sarah-border/70">
+            <td class="px-2 py-3 font-medium text-sarah-ink"><%= patient.full_name %></td>
+            <td class="px-2 py-3"><%= patient.status.capitalize %></td>
+            <td class="px-2 py-3"><%= patient.professional&.email || "Sin asignar" %></td>
+            <td class="px-2 py-3">
+              <%= link_to "Ver", portal_patient_path(patient), class: "text-sarah-calm hover:underline" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

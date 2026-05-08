@@ -9,4 +9,19 @@ class User < ApplicationRecord
   }, prefix: true
 
   validates :role, inclusion: { in: roles.keys.map(&:to_s) }
+
+  has_many :assigned_patients,
+           class_name: "Patient",
+           foreign_key: :professional_id,
+           inverse_of: :professional,
+           dependent: :nullify
+  has_many :clinical_notes, foreign_key: :professional_id, inverse_of: :professional, dependent: :nullify
+
+  def backoffice_role?
+    role_system_admin? || role_admin? || role_professional?
+  end
+
+  def clinical_access?
+    role_system_admin? || role_professional?
+  end
 end

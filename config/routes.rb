@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get "contacto", to: "public#contact", as: :contact
 
   namespace :portal do
+    resources :patients do
+      resources :clinical_notes, only: :create
+    end
     root to: "dashboard#show"
   end
 

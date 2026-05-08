@@ -36,7 +36,9 @@
           <%= link_to "Noticias y recursos", news_path, class: "hover:text-sarah-ink" %>
           <%= link_to "Contacto", contact_path, class: "hover:text-sarah-ink" %>
           <% if user_signed_in? %>
-            <%= link_to "Portal", portal_root_path, class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+            <% if current_user.backoffice_role? %>
+              <%= link_to "Portal", portal_root_path, class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+            <% end %>
             <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, class: "text-sarah-muted hover:text-sarah-ink" %>
           <% else %>
             <%= link_to "Iniciar sesión", new_user_session_path, class: "rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>

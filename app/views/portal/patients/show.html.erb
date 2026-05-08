@@ -1,0 +1,80 @@
+<% content_for :title, "Ficha de paciente — Portal" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
+  <div class="flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <h1 class="font-serif text-2xl font-semibold text-sarah-ink"><%= @patient.full_name %></h1>
+      <p class="mt-1 text-sm text-sarah-muted">
+        Estado: <span class="font-medium text-sarah-ink"><%= @patient.status.capitalize %></span>
+      </p>
+      <p class="text-sm text-sarah-muted">Profesional: <%= @patient.professional&.email || "Sin asignar" %></p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <%= link_to "Editar", edit_portal_patient_path(@patient), class: "text-sm text-sarah-calm hover:underline" %>
+      <% if policy(@patient).destroy? %>
+        <%= button_to "Eliminar",
+                      portal_patient_path(@patient),
+                      method: :delete,
+                      data: { turbo_confirm: "¿Eliminar paciente?" },
+                      class: "text-sm text-red-700 hover:underline" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
+    <article class="rounded-xl border border-sarah-border bg-sarah-surface p-4">
+      <h2 class="font-semibold text-sarah-ink">Información de contacto</h2>
+      <p class="mt-2 text-sm text-sarah-muted">Email: <%= @patient.email.presence || "Sin email" %></p>
+      <p class="text-sm text-sarah-muted">Teléfono: <%= @patient.phone.presence || "Sin teléfono" %></p>
+    </article>
+    <article class="rounded-xl border border-sarah-border bg-sarah-surface p-4">
+      <h2 class="font-semibold text-sarah-ink">Resumen</h2>
+      <p class="mt-2 text-sm text-sarah-muted whitespace-pre-line"><%= @patient.summary.presence || "Sin resumen." %></p>
+    </article>
+  </div>
+
+  <% if @can_view_clinical %>
+    <article class="mt-4 rounded-xl border border-sarah-border bg-white p-4">
+      <h2 class="font-semibold text-sarah-ink">Sección clínica protegida</h2>
+      <p class="mt-2 text-sm text-sarah-muted whitespace-pre-line"><%= @patient.sensitive_notes.presence || "Sin notas clínicas protegidas." %></p>
+    </article>
+  <% end %>
+
+  <article class="mt-4 rounded-xl border border-sarah-border bg-white p-4">
+    <h2 class="font-semibold text-sarah-ink">Documentos adjuntos</h2>
+    <% if @patient.documents.attached? %>
+      <ul class="mt-2 list-disc pl-5 text-sm text-sarah-muted">
+        <% @patient.documents.each do |document| %>
+          <li><%= link_to document.filename.to_s, rails_blob_path(document, disposition: "attachment"), class: "text-sarah-calm hover:underline" %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="mt-2 text-sm text-sarah-muted">No hay documentos adjuntos.</p>
+    <% end %>
+  </article>
+
+  <% if @can_view_clinical %>
+    <article class="mt-4 rounded-xl border border-sarah-border bg-white p-4">
+      <h2 class="font-semibold text-sarah-ink">Notas internas por profesional</h2>
+      <%= form_with model: [ :portal, @patient, @clinical_note ], class: "mt-3 space-y-3" do |f| %>
+        <%= f.text_area :body, rows: 4, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+        <%= f.submit "Guardar nota",
+                     class: "rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-sarah-calm/90" %>
+      <% end %>
+
+      <div class="mt-4 space-y-3">
+        <% @clinical_notes.each do |note| %>
+          <article class="rounded-lg border border-sarah-border bg-sarah-surface p-3">
+            <p class="text-xs text-sarah-muted"><%= note.professional.email %> · <%= l(note.created_at, format: :short) %></p>
+            <p class="mt-1 text-sm whitespace-pre-line"><%= note.body %></p>
+          </article>
+        <% end %>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="mt-6">
+    <%= link_to "Volver al listado", portal_patients_path, class: "text-sm text-sarah-muted hover:underline" %>
+  </div>
+</section>
