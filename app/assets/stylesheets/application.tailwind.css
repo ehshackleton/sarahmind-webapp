@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* Motion: animaciones suaves; usuarios con prefers-reduced-motion reciben estáticos equivalentes (WCAG 2.1). */
 /* Paleta: tonos cálidos, azul contenido y acento coral — legible y calmado para contexto clínico */
 @theme {
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -15,6 +16,46 @@
   --color-sarah-accent: #c9957c;
   --color-sarah-border: #e0d9ce;
   --color-sarah-forest: #4a6d5a;
+
+  --animate-sarah-breathe: sarah-breathe 10s ease-in-out infinite alternate;
+  --animate-sarah-fade-in: sarah-fade-in 0.45s ease-out forwards;
+  --animate-turbo-bar: sarah-turbo-bar 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes sarah-breathe {
+  from {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes sarah-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sarah-turbo-bar {
+  from {
+    transform: scaleX(0.12);
+    opacity: 0.65;
+  }
+
+  to {
+    transform: scaleX(0.55);
+    opacity: 1;
+  }
 }
 
 @layer base {
@@ -37,5 +78,109 @@
 
   details.public-mobile-nav[open] > summary svg {
     transform: rotate(180deg);
+  }
+
+  /* Barra de navegación Turbo (discreta) */
+  html.turbo-loading::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    height: 3px;
+    width: 100%;
+    transform-origin: left center;
+    background: linear-gradient(
+      90deg,
+      var(--color-sarah-calm-deep),
+      var(--color-sarah-calm),
+      var(--color-sarah-accent)
+    );
+    animation: var(--animate-turbo-bar);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.turbo-loading::before {
+      display: none;
+    }
+
+    .sarah-hero-blob {
+      animation: none !important;
+    }
+
+    .sarah-animate-in {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .sarah-card-lift {
+      transition: none !important;
+    }
+
+    .sarah-card-lift:hover {
+      transform: none !important;
+    }
+
+    .sarah-reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .sarah-interactive-press:active {
+      transform: none !important;
+    }
+  }
+}
+
+@layer utilities {
+  .sarah-hero-blob {
+    animation: var(--animate-sarah-breathe);
+    will-change: opacity, transform;
+  }
+
+  .sarah-animate-in {
+    animation: var(--animate-sarah-fade-in);
+    opacity: 0;
+  }
+
+  .sarah-card-lift {
+    transition:
+      transform 200ms ease-out,
+      box-shadow 200ms ease-out;
+  }
+
+  .sarah-card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 15px -3px rgb(28 39 56 / 0.06),
+      0 4px 6px -4px rgb(28 39 56 / 0.04);
+  }
+
+  .sarah-reveal {
+    opacity: 0;
+    transform: translateY(0.75rem);
+    transition:
+      opacity 0.45s ease-out,
+      transform 0.45s ease-out;
+  }
+
+  .sarah-reveal.sarah-reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .sarah-interactive-press {
+    transition:
+      transform 150ms ease-out,
+      background-color 200ms ease-out,
+      border-color 200ms ease-out,
+      box-shadow 200ms ease-out;
+  }
+
+  .sarah-interactive-press:active {
+    transform: scale(0.98);
   }
 }

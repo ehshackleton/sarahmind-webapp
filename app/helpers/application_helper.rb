@@ -46,7 +46,7 @@ module ApplicationHelper
         Array(actions).map(&:to_s).include?(action_name)
       end
     active = controller_ok && action_ok
-    base = "rounded-full px-3.5 py-2 text-sm font-medium transition focus:outline-none"
+    base = "rounded-full px-3.5 py-2 text-sm font-medium transition duration-200 ease-out focus:outline-none"
     classes =
       if active
         "#{base} bg-sarah-calm text-white shadow-sm"
