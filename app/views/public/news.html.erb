@@ -3,12 +3,27 @@
 <section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm md:p-10">
   <h1 class="font-serif text-3xl font-semibold text-sarah-ink">Noticias y recursos</h1>
   <p class="mt-3 text-sarah-muted">
-    Información actualizada sobre violencia, legislación, estudios nacionales y recursos institucionales confiables.
+    Información actualizada sobre violencia, legislación, estudios y recursos institucionales confiables.
   </p>
 
-  <ul class="mt-6 list-disc space-y-2 pl-5 text-sarah-ink">
-    <li>Estudios nacionales sobre abuso, maltrato y violencia.</li>
-    <li>Actualización de leyes y orientaciones para víctimas.</li>
-    <li>Recursos institucionales: ONU Mujeres y organismos públicos.</li>
-  </ul>
+  <% if @articles.any? %>
+    <div class="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <% @articles.each do |article| %>
+        <article class="sarah-card-lift rounded-xl border border-sarah-border bg-sarah-surface/70 p-5 shadow-sm">
+          <p class="text-xs uppercase tracking-wide text-sarah-muted">
+            <%= article.published_at&.strftime("%d/%m/%Y") || "Sin fecha" %>
+          </p>
+          <h2 class="mt-2 text-lg font-semibold text-sarah-ink"><%= article.title %></h2>
+          <p class="mt-2 text-sm text-sarah-muted"><%= article.excerpt %></p>
+          <p class="mt-3 text-xs text-sarah-muted">Autor: <%= article.author.email %></p>
+          <%= render "article_share_buttons", article: article %>
+          <%= link_to "Leer artículo", news_article_path(article.slug), class: "mt-4 inline-flex text-sm font-medium text-sarah-calm hover:underline" %>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="mt-6 text-sm text-sarah-muted">
+      Aún no hay artículos publicados. Vuelve pronto para ver novedades y recursos.
+    </p>
+  <% end %>
 </section>

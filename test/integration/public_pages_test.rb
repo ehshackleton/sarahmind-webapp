@@ -23,6 +23,14 @@ class PublicPagesTest < ActionDispatch::IntegrationTest
     get news_url
     assert_response :success
     assert_select "h1", text: "Noticias y recursos"
+    assert_match articles(:published_professional).title, response.body
+  end
+
+  test "detalle de noticia publicada responde OK" do
+    get news_article_url(slug: articles(:published_professional).slug)
+    assert_response :success
+    assert_select "h1", text: articles(:published_professional).title
+    assert_match "https://x.com/intent/tweet", response.body
   end
 
   test "contacto responde OK" do

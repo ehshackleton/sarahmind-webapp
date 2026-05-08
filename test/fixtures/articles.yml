@@ -1,0 +1,25 @@
+published_professional:
+  title: Guía de apoyo inicial
+  slug: guia-apoyo-inicial
+  excerpt: Recomendaciones para primeros pasos de autocuidado.
+  body: Contenido extendido para acompañamiento emocional y redes de apoyo.
+  status: published
+  published_at: <%= 2.days.ago %>
+  author: professional
+
+draft_professional:
+  title: Borrador de artículo interno
+  slug: borrador-articulo-interno
+  excerpt: Borrador de trabajo para revisión.
+  body: Este contenido aún no debe verse en público.
+  status: draft
+  author: professional
+
+published_admin:
+  title: Recursos institucionales 2026
+  slug: recursos-institucionales-2026
+  excerpt: Organizaciones y líneas de ayuda actualizadas.
+  body: Directorio de apoyo y asistencia pública.
+  status: published
+  published_at: <%= 1.day.ago %>
+  author: admin

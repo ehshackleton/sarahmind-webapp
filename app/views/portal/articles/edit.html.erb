@@ -1,0 +1,10 @@
+<% content_for :title, "Editar artículo — Espacio clínico — SarahMind" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm md:p-10">
+  <h1 class="font-serif text-2xl font-semibold text-sarah-ink md:text-3xl">Editar artículo</h1>
+  <p class="mt-2 text-sm text-sarah-muted">Actualiza contenido y estado de publicación.</p>
+
+  <div class="mt-6">
+    <%= render "form", article: @article %>
+  </div>
+</section>

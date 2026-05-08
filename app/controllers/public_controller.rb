@@ -5,7 +5,13 @@ class PublicController < ApplicationController
 
   def tips; end
 
-  def news; end
+  def news
+    @articles = Article.published.includes(:author).random_order.limit(9)
+  end
+
+  def news_article
+    @article = Article.published.find_by!(slug: params[:slug])
+  end
 
   def contact; end
 end

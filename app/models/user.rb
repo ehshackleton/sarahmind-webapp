@@ -22,6 +22,7 @@ class User < ApplicationRecord
            inverse_of: :professional,
            dependent: :restrict_with_exception
   has_many :audit_events, foreign_key: :actor_id, inverse_of: :actor, dependent: :nullify
+  has_many :articles, foreign_key: :author_id, inverse_of: :author, dependent: :destroy
 
   def backoffice_role?
     role_system_admin? || role_admin? || role_professional?

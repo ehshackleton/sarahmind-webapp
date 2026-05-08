@@ -67,6 +67,21 @@ module ApplicationHelper
     end
   end
 
+  def article_share_urls(article)
+    public_url = news_article_url(article.slug)
+    text = "#{article.title} — SarahMind"
+    encoded_url = ERB::Util.url_encode(public_url)
+    encoded_text = ERB::Util.url_encode(text)
+
+    {
+      x: "https://x.com/intent/tweet?url=#{encoded_url}&text=#{encoded_text}",
+      reddit: "https://www.reddit.com/submit?url=#{encoded_url}&title=#{encoded_text}",
+      facebook: "https://www.facebook.com/sharer/sharer.php?u=#{encoded_url}",
+      whatsapp: "https://wa.me/?text=#{ERB::Util.url_encode("#{text} #{public_url}")}",
+      instagram: "https://www.instagram.com/"
+    }
+  end
+
   private
 
   def audit_metadata_to_sanitized_string(value, depth = 0)

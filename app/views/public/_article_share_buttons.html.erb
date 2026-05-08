@@ -1,0 +1,13 @@
+<% share_urls = article_share_urls(article) %>
+
+<div class="mt-4 flex flex-wrap items-center gap-2 text-xs">
+  <span class="text-sarah-muted">Compartir:</span>
+  <%= link_to "X", share_urls[:x], target: "_blank", rel: "noopener noreferrer", class: "rounded-full border border-sarah-border bg-white px-2.5 py-1 text-sarah-ink hover:bg-sarah-surface" %>
+  <%= link_to "Reddit", share_urls[:reddit], target: "_blank", rel: "noopener noreferrer", class: "rounded-full border border-sarah-border bg-white px-2.5 py-1 text-sarah-ink hover:bg-sarah-surface" %>
+  <%= link_to "Facebook", share_urls[:facebook], target: "_blank", rel: "noopener noreferrer", class: "rounded-full border border-sarah-border bg-white px-2.5 py-1 text-sarah-ink hover:bg-sarah-surface" %>
+  <%= link_to "WhatsApp", share_urls[:whatsapp], target: "_blank", rel: "noopener noreferrer", class: "rounded-full border border-sarah-border bg-white px-2.5 py-1 text-sarah-ink hover:bg-sarah-surface" %>
+  <%= link_to "Instagram", share_urls[:instagram], target: "_blank", rel: "noopener noreferrer", class: "rounded-full border border-sarah-border bg-white px-2.5 py-1 text-sarah-ink hover:bg-sarah-surface" %>
+</div>
+<p class="mt-2 text-xs text-sarah-muted">
+  Instagram no permite compartir enlaces web directo. Usa “Copiar enlace” y pégalo al publicar.
+</p>

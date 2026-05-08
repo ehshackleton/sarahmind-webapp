@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "cursos", to: "public#courses", as: :courses
   get "tips-ejercicios", to: "public#tips", as: :tips
   get "noticias-recursos", to: "public#news", as: :news
+  get "noticias-recursos/:slug", to: "public#news_article", as: :news_article
   get "contacto", to: "public#contact", as: :contact
 
   namespace :portal do
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
       end
     end
     resources :therapy_sessions
+    resources :articles
     resources :patients do
       resources :clinical_notes, only: :create
       member do

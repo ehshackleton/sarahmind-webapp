@@ -1,0 +1,19 @@
+<% content_for :title, "#{@article.title} — SarahMind" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm md:p-10">
+  <p class="text-xs uppercase tracking-wide text-sarah-muted">
+    Noticias y recursos · <%= @article.published_at&.strftime("%d/%m/%Y") || "Sin fecha" %>
+  </p>
+  <h1 class="mt-2 font-serif text-3xl font-semibold text-sarah-ink"><%= @article.title %></h1>
+  <p class="mt-3 text-sarah-muted"><%= @article.excerpt %></p>
+  <p class="mt-2 text-xs text-sarah-muted">Autor: <%= @article.author.email %></p>
+
+  <article class="prose prose-slate mt-6 max-w-none">
+    <%= simple_format(@article.body) %>
+  </article>
+
+  <div class="mt-8 border-t border-sarah-border/70 pt-6">
+    <%= render "article_share_buttons", article: @article %>
+    <%= link_to "Volver a noticias y recursos", news_path, class: "text-sm font-medium text-sarah-calm hover:underline" %>
+  </div>
+</section>

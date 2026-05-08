@@ -1,0 +1,48 @@
+<%= form_with(model: [ :portal, article ], class: "space-y-5") do |f| %>
+  <% if article.errors.any? %>
+    <div class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+      <p class="font-semibold">Revisa los campos del formulario:</p>
+      <ul class="mt-2 list-disc pl-5">
+        <% article.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :title, "Título", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.text_field :title, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div>
+    <%= f.label :slug, "Slug", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.text_field :slug, placeholder: "se-genera-desde-titulo", class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div>
+    <%= f.label :excerpt, "Resumen breve", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.text_area :excerpt, rows: 3, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div>
+    <%= f.label :body, "Contenido", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+    <%= f.text_area :body, rows: 8, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-2">
+    <div>
+      <%= f.label :status, "Estado", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+      <%= f.select :status, Article.statuses.keys.map { |key| [key.humanize, key] }, {}, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+    </div>
+    <div>
+      <%= f.label :published_at, "Fecha de publicación", class: "mb-1.5 block text-sm font-medium text-sarah-ink" %>
+      <%= f.datetime_field :published_at, class: "w-full rounded-xl border border-sarah-border bg-sarah-surface px-3 py-2.5" %>
+    </div>
+  </div>
+
+  <div class="flex items-center gap-3">
+    <%= f.submit class: "rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-sarah-calm/90" %>
+    <%= link_to "Volver", portal_articles_path, class: "text-sm text-sarah-muted hover:underline" %>
+  </div>
+<% end %>

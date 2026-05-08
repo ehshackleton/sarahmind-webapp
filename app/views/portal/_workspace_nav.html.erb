@@ -6,6 +6,7 @@
     <%= portal_nav_link "Resumen", portal_root_path, controller_matches: %w[portal/dashboard] %>
     <%= portal_nav_link "Pacientes", portal_patients_path, controller_matches: %w[portal/patients portal/clinical_notes] %>
     <%= portal_nav_link "Agenda", portal_therapy_sessions_path, controller_matches: %w[portal/therapy_sessions] %>
+    <%= portal_nav_link "Artículos", portal_articles_path, controller_matches: %w[portal/articles] %>
     <% if current_user.role_system_admin? %>
       <span class="inline-flex flex-wrap items-center gap-1" title="Auditoría y documentación relacionada">
         <%= portal_nav_link "Auditoría", portal_audit_events_path, controller_matches: %w[portal/audit_events], actions: "index" %>

@@ -1,0 +1,24 @@
+<% content_for :title, "#{@article.title} — Espacio clínico — SarahMind" %>
+
+<section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm md:p-10">
+  <header class="border-b border-sarah-border/80 pb-5">
+    <p class="text-xs uppercase tracking-wide text-sarah-muted">Artículo</p>
+    <h1 class="mt-2 font-serif text-2xl font-semibold text-sarah-ink md:text-3xl"><%= @article.title %></h1>
+    <p class="mt-2 text-sm text-sarah-muted">
+      Estado: <strong><%= @article.status.humanize %></strong>
+      · Autor: <%= @article.author.email %>
+      · Publicación: <%= @article.published_at&.strftime("%d/%m/%Y %H:%M") || "Pendiente" %>
+    </p>
+  </header>
+
+  <p class="mt-5 text-sarah-muted"><%= @article.excerpt %></p>
+  <article class="prose prose-slate mt-5 max-w-none">
+    <%= simple_format(@article.body) %>
+  </article>
+
+  <div class="mt-8 flex flex-wrap items-center gap-3 border-t border-sarah-border/70 pt-6">
+    <%= link_to "Editar", edit_portal_article_path(@article), class: "sarah-interactive-press rounded-full border border-sarah-border bg-white px-4 py-2 text-sm font-medium text-sarah-ink hover:bg-sarah-surface" %>
+    <%= link_to "Eliminar", portal_article_path(@article), data: { turbo_method: :delete, turbo_confirm: "¿Eliminar este artículo?" }, class: "sarah-interactive-press rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-800 hover:bg-red-100" %>
+    <%= link_to "Volver", portal_articles_path, class: "text-sm text-sarah-muted hover:underline" %>
+  </div>
+</section>
