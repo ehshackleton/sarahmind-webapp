@@ -20,6 +20,7 @@ class Portal::TherapySessionsControllerTest < ActionDispatch::IntegrationTest
     ends_at = starts + 50.minutes
 
     assert_difference("TherapySession.count", 1) do
+      assert_difference -> { AuditEvent.where(action: "therapy_session.create").count }, 1 do
       assert_emails 1 do
         post portal_therapy_sessions_url, params: {
           therapy_session: {
@@ -32,6 +33,7 @@ class Portal::TherapySessionsControllerTest < ActionDispatch::IntegrationTest
           }
         }
       end
+      end
     end
 
     assert_redirected_to portal_therapy_session_url(TherapySession.order(:created_at).last)
@@ -40,10 +42,23 @@ class Portal::TherapySessionsControllerTest < ActionDispatch::IntegrationTest
   test "admin actualiza estado a cancelada" do
     sign_in users(:admin)
     session = therapy_sessions(:one)
-    patch portal_therapy_session_url(session), params: {
-      therapy_session: { status: "cancelled" }
-    }
+    assert_difference -> { AuditEvent.where(action: "therapy_session.update").count }, 1 do
+      patch portal_therapy_session_url(session), params: {
+        therapy_session: { status: "cancelled" }
+      }
+    end
     assert_redirected_to portal_therapy_session_url(session)
     assert_equal "cancelled", session.reload.status
+  end
+
+  test "admin elimina sesión y registra auditoría" do
+    sign_in users(:admin)
+    session = therapy_sessions(:two)
+    assert_difference -> { AuditEvent.where(action: "therapy_session.destroy").count }, 1 do
+      assert_difference("TherapySession.count", -1) do
+        delete portal_therapy_session_url(session)
+      end
+    end
+    assert_redirected_to portal_therapy_sessions_url
   end
 end

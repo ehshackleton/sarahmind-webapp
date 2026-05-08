@@ -17,7 +17,9 @@ class Portal::PatientsControllerTest < ActionDispatch::IntegrationTest
   test "professional crea nota clínica interna" do
     sign_in users(:professional)
     assert_difference("ClinicalNote.count", 1) do
-      post portal_patient_clinical_notes_url(patients(:one)), params: { clinical_note: { body: "Nota interna nueva" } }
+      assert_difference -> { AuditEvent.where(action: "patient.clinical_note_create").count }, 1 do
+        post portal_patient_clinical_notes_url(patients(:one)), params: { clinical_note: { body: "Nota interna nueva" } }
+      end
     end
     assert_redirected_to portal_patient_url(patients(:one))
   end
@@ -41,9 +43,23 @@ class Portal::PatientsControllerTest < ActionDispatch::IntegrationTest
   test "professional al cambiar notas sensibles registra patient.clinical_update" do
     sign_in users(:professional)
     assert_difference -> { AuditEvent.where(action: "patient.clinical_update").count }, 1 do
-      patch portal_patient_url(patients(:one)), params: { patient: { sensitive_notes: "Actualizado en auditoría test" } }
+      assert_no_difference -> { AuditEvent.where(action: "patient.update").count } do
+        patch portal_patient_url(patients(:one)), params: { patient: { sensitive_notes: "Actualizado en auditoría test" } }
+      end
     end
     assert_redirected_to portal_patient_url(patients(:one))
+  end
+
+  test "professional al cambiar resumen registra patient.update con campos sin valores" do
+    sign_in users(:professional)
+    assert_difference -> { AuditEvent.where(action: "patient.update").count }, 1 do
+      assert_no_difference -> { AuditEvent.where(action: "patient.clinical_update").count } do
+        patch portal_patient_url(patients(:one)), params: { patient: { summary: "Resumen solo no clínico" } }
+      end
+    end
+    assert_redirected_to portal_patient_url(patients(:one))
+    meta = AuditEvent.order(created_at: :desc).find_by(action: "patient.update")&.metadata
+    assert_equal %w[summary], meta["fields"]
   end
 
   test "descarga de documento adjunto registra patient.document_download" do

@@ -39,11 +39,21 @@ module Portal
     def update
       authorize @patient
 
-      sensitive_before = @patient.sensitive_notes
       if @patient.update(patient_params)
-        if policy(@patient).clinical_section? && sensitive_before != @patient.sensitive_notes
+        changes = @patient.previous_changes.except("updated_at")
+        if changes.key?("sensitive_notes") && policy(@patient).clinical_section?
           log_audit!("patient.clinical_update", auditable: @patient)
         end
+
+        non_clinical = changes.except("sensitive_notes")
+        if non_clinical.any?
+          log_audit!(
+            "patient.update",
+            auditable: @patient,
+            metadata: { fields: non_clinical.keys.map(&:to_s).sort }
+          )
+        end
+
         redirect_to portal_patient_path(@patient), notice: "Paciente actualizado."
       else
         render :edit, status: :unprocessable_content

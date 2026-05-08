@@ -22,6 +22,7 @@ module Portal
       authorize @therapy_session
 
       if @therapy_session.save
+        log_audit!("therapy_session.create", auditable: @therapy_session)
         redirect_to portal_therapy_session_path(@therapy_session), notice: "Sesión creada correctamente."
       else
         render :new, status: :unprocessable_content
@@ -36,6 +37,10 @@ module Portal
       authorize @therapy_session
 
       if @therapy_session.update(therapy_session_params)
+        meta = {}
+        meta[:status] = @therapy_session.status if @therapy_session.saved_change_to_status?
+        meta[:starts_at] = @therapy_session.starts_at.iso8601 if @therapy_session.saved_change_to_starts_at?
+        log_audit!("therapy_session.update", auditable: @therapy_session, metadata: meta)
         redirect_to portal_therapy_session_path(@therapy_session), notice: "Sesión actualizada."
       else
         render :edit, status: :unprocessable_content
@@ -44,7 +49,14 @@ module Portal
 
     def destroy
       authorize @therapy_session
+      patient = @therapy_session.patient
+      session_id = @therapy_session.id
       @therapy_session.destroy
+      log_audit!(
+        "therapy_session.destroy",
+        auditable: patient,
+        metadata: { therapy_session_id: session_id }
+      )
       redirect_to portal_therapy_sessions_path, notice: "Sesión eliminada."
     end
 

@@ -6,6 +6,11 @@ module Portal
       authorize @clinical_note
 
       if @clinical_note.save
+        log_audit!(
+          "patient.clinical_note_create",
+          auditable: @clinical_note,
+          metadata: { patient_id: @patient.id }
+        )
         redirect_to portal_patient_path(@patient), notice: "Nota interna registrada."
       else
         redirect_to portal_patient_path(@patient), alert: "No se pudo guardar la nota interna."
