@@ -1,0 +1,17 @@
+<nav aria-label="Espacio clínico" class="border-b border-sarah-border/90 bg-gradient-to-r from-sarah-surface via-white to-sarah-surface/80">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-1 px-4 py-3 md:gap-2 md:px-6">
+    <p class="mr-2 hidden text-xs font-semibold uppercase tracking-wide text-sarah-forest md:block">
+      Espacio clínico
+    </p>
+    <%= portal_nav_link "Resumen", portal_root_path, controller_matches: %w[portal/dashboard] %>
+    <%= portal_nav_link "Pacientes", portal_patients_path, controller_matches: %w[portal/patients portal/clinical_notes] %>
+    <%= portal_nav_link "Agenda", portal_therapy_sessions_path, controller_matches: %w[portal/therapy_sessions] %>
+    <% if current_user.role_system_admin? %>
+      <span class="inline-flex flex-wrap items-center gap-1" title="Auditoría y documentación relacionada">
+        <%= portal_nav_link "Auditoría", portal_audit_events_path, controller_matches: %w[portal/audit_events], actions: "index" %>
+        <%= portal_nav_link "Guía", retention_guide_portal_audit_events_path, controller_matches: %w[portal/audit_events], actions: "retention_guide" %>
+      </span>
+      <%= portal_nav_link "Roles", portal_users_path, controller_matches: %w[portal/users] %>
+    <% end %>
+  </div>
+</nav>

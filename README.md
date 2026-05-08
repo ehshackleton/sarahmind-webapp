@@ -73,6 +73,7 @@ GitHub Actions (`.github/workflows/ci.yml`): Brakeman, RuboCop (omakase) y tests
 - `docs/architecture.md` — arquitectura y seguridad base
 - `docs/domain-model.md` — modelo de dominio inicial
 - `docs/mvp-backlog.md` — backlog por sprints
+- [`docs/audit-and-data-retention.md`](docs/audit-and-data-retention.md) — auditoría, metadatos y lineamientos de retención de datos (en el **portal**, usuario `system_admin`: **Auditoría** → *Guía de auditoría y retención*, ruta interna que muestra el mismo archivo)
 
 ## Imagen de producción
 

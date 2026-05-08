@@ -8,4 +8,8 @@ class Patient < ApplicationRecord
 
   validates :full_name, presence: true
   validates :status, inclusion: { in: STATUSES }
+
+  def next_upcoming_session
+    therapy_sessions.merge(TherapySession.upcoming).first
+  end
 end

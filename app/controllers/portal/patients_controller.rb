@@ -13,6 +13,7 @@ module Portal
       @clinical_notes = @patient.clinical_notes.includes(:professional).order(created_at: :desc)
       @clinical_note = ClinicalNote.new
       @therapy_sessions = policy_scope(TherapySession).where(patient_id: @patient.id).includes(:professional).order(starts_at: :desc).limit(25)
+      @next_upcoming_session = @patient.next_upcoming_session
       log_audit!("patient.clinical_read", auditable: @patient) if @can_view_clinical
     end
 

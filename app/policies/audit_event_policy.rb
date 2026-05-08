@@ -10,4 +10,8 @@ class AuditEventPolicy < ApplicationPolicy
   def index?
     user&.role_system_admin?
   end
+
+  def retention_guide?
+    index?
+  end
 end

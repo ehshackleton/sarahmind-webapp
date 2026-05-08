@@ -2,6 +2,11 @@ class TherapySession < ApplicationRecord
   belongs_to :patient
   belongs_to :professional, class_name: "User", inverse_of: :led_therapy_sessions
 
+  scope :upcoming,
+        lambda {
+          status_scheduled.where("starts_at >= ?", Time.zone.now).order(starts_at: :asc)
+        }
+
   enum :status,
        { scheduled: "scheduled", completed: "completed", cancelled: "cancelled" },
        prefix: true,

@@ -10,7 +10,9 @@ class PortalTest < ActionDispatch::IntegrationTest
     sign_in users(:admin)
     get portal_root_url
     assert_response :success
-    assert_select "h1", text: /Portal privado/
+    assert_select "h1", text: /Resumen del espacio clínico/
+    assert_select "nav[aria-label='Espacio clínico']"
+    assert_select "a[href='#{portal_root_path}'][aria-current='page']", text: "Resumen"
   end
 
   test "portal rechaza usuario paciente" do

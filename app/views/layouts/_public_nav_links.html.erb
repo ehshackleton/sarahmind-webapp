@@ -1,0 +1,22 @@
+<%# locals: stacked: true para menú móvil, false para barra md+ %>
+<% stacked = local_assigns.fetch(:stacked, false) %>
+<% item = stacked ? "block rounded-xl px-3 py-2.5 text-sm font-medium text-sarah-ink hover:bg-sarah-surface" : "shrink-0 text-sm font-medium text-sarah-muted hover:text-sarah-ink" %>
+<% portal_btn = stacked ? "#{item} bg-sarah-sand/90 font-semibold text-center" : "shrink-0 rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+<% signin_btn = stacked ? "#{item} bg-sarah-sand/90 text-center font-medium" : "shrink-0 rounded-full bg-sarah-sand px-3 py-1.5 text-sarah-ink hover:bg-sarah-accent/20" %>
+<% signout_form = stacked ? "mt-1 px-1" : "inline" %>
+<% signout_btn = stacked ? "w-full rounded-xl border border-sarah-border px-3 py-2.5 text-center text-sm font-medium text-sarah-muted hover:bg-sarah-surface" : "text-sarah-muted hover:text-sarah-ink" %>
+
+<%= link_to "Inicio", root_path, class: item %>
+<%= link_to "Quiénes somos", about_path, class: item %>
+<%= link_to "Cursos", courses_path, class: item %>
+<%= link_to "Tips y ejercicios", tips_path, class: item %>
+<%= link_to "Noticias y recursos", news_path, class: item %>
+<%= link_to "Contacto", contact_path, class: item %>
+<% if user_signed_in? %>
+  <% if current_user.backoffice_role? %>
+    <%= link_to "Portal clínico", portal_root_path, class: portal_btn %>
+  <% end %>
+  <%= button_to "Cerrar sesión", destroy_user_session_path, method: :delete, form: { class: signout_form }, class: signout_btn %>
+<% else %>
+  <%= link_to "Iniciar sesión", new_user_session_path, class: signin_btn %>
+<% end %>

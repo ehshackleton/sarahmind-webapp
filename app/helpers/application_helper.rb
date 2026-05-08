@@ -24,6 +24,49 @@ module ApplicationHelper
     "#{visible}@#{domain}"
   end
 
+  def portal_workspace_nav?
+    user_signed_in? && current_user.backoffice_role? && request.path.start_with?("/portal")
+  end
+
+  def main_content_wrapper_classes
+    base = "mx-auto px-4 py-10 md:px-6 md:py-14"
+    if request.path.start_with?("/portal")
+      "#{base} max-w-6xl"
+    else
+      "#{base} max-w-5xl"
+    end
+  end
+
+  def portal_nav_link(text, path, controller_matches: [], actions: nil)
+    controller_ok = controller_matches.any? { |c| controller_path == c }
+    action_ok =
+      if actions.nil?
+        true
+      else
+        Array(actions).map(&:to_s).include?(action_name)
+      end
+    active = controller_ok && action_ok
+    base = "rounded-full px-3.5 py-2 text-sm font-medium transition focus:outline-none"
+    classes =
+      if active
+        "#{base} bg-sarah-calm text-white shadow-sm"
+      else
+        "#{base} text-sarah-muted hover:bg-white hover:text-sarah-ink"
+      end
+    opts = { class: classes }
+    opts[:"aria-current"] = "page" if active
+    link_to text, path, **opts
+  end
+
+  def therapy_session_row_classes(session)
+    base = "border-b border-sarah-border/70 transition-colors hover:bg-sarah-surface/50"
+    if session.status_scheduled? && session.starts_at < Time.zone.now
+      "#{base} bg-amber-50/70"
+    else
+      base
+    end
+  end
+
   private
 
   def audit_metadata_to_sanitized_string(value, depth = 0)

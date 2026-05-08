@@ -1,22 +1,41 @@
 @import "tailwindcss";
 
-/* Paleta sugerida en literate.org: azul calmado, arena, coral suave, fondo cálido */
+/* Paleta: tonos cálidos, azul contenido y acento coral — legible y calmado para contexto clínico */
 @theme {
-  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-serif: "Fraunces", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 
-  --color-sarah-bg: #f7f4ef;
-  --color-sarah-surface: #faf8f5;
+  --color-sarah-bg: #f5f1ea;
+  --color-sarah-surface: #faf8f4;
   --color-sarah-sand: #e8e0d5;
-  --color-sarah-ink: #1e293b;
-  --color-sarah-muted: #64748b;
-  --color-sarah-calm: #5b8fb8;
-  --color-sarah-accent: #d4a08a;
-  --color-sarah-border: #e2ddd4;
+  --color-sarah-ink: #1c2738;
+  --color-sarah-muted: #5c6b7e;
+  --color-sarah-calm: #4a7fa8;
+  --color-sarah-calm-deep: #3d6d8c;
+  --color-sarah-accent: #c9957c;
+  --color-sarah-border: #e0d9ce;
+  --color-sarah-forest: #4a6d5a;
 }
 
 @layer base {
   body {
     font-family: var(--font-sans);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-sarah-calm);
+    outline-offset: 2px;
+  }
+
+  details.public-mobile-nav > summary {
+    list-style: none;
+  }
+
+  details.public-mobile-nav > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details.public-mobile-nav[open] > summary svg {
+    transform: rotate(180deg);
   }
 }

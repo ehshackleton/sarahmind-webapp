@@ -1,8 +1,14 @@
 <% content_for :title, "Auditoría — Portal" %>
 
 <section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
-  <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Auditoría y trazabilidad</h1>
-  <p class="mt-2 text-sm text-sarah-muted">Últimos eventos críticos del sistema.</p>
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Auditoría y trazabilidad</h1>
+      <p class="mt-2 text-sm text-sarah-muted">Últimos eventos críticos del sistema.</p>
+    </div>
+    <%= link_to "Guía de auditoría y retención", retention_guide_portal_audit_events_path,
+                class: "shrink-0 rounded-full border border-sarah-border bg-white px-4 py-2 text-sm font-medium text-sarah-calm shadow-sm hover:bg-sarah-calm/10" %>
+  </div>
 
   <div class="mt-6 overflow-x-auto">
     <table class="min-w-full text-left text-sm">

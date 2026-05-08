@@ -2,7 +2,10 @@
 
 <section class="rounded-2xl border border-sarah-border bg-white/90 p-8 shadow-sm">
   <div class="flex flex-wrap items-center justify-between gap-3">
-    <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Agenda de sesiones</h1>
+    <div>
+      <h1 class="font-serif text-2xl font-semibold text-sarah-ink">Agenda de sesiones</h1>
+      <p class="mt-1 text-sm text-sarah-muted">Las filas en tono ámbar son citas programadas ya pasadas en fecha (revisa o reprograma).</p>
+    </div>
     <% if policy(TherapySession.new).create? %>
       <%= link_to "Nueva sesión", new_portal_therapy_session_path,
                   class: "rounded-full bg-sarah-calm px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-sarah-calm/90" %>
@@ -22,7 +25,7 @@
       </thead>
       <tbody>
         <% @therapy_sessions.each do |session| %>
-          <tr class="border-b border-sarah-border/70">
+          <tr class="<%= therapy_session_row_classes(session) %>">
             <td class="px-2 py-3 text-sarah-ink"><%= l(session.starts_at, format: :short) %></td>
             <td class="px-2 py-3 font-medium text-sarah-ink"><%= session.patient.full_name %></td>
             <td class="px-2 py-3 text-sarah-muted"><%= session.professional.email %></td>

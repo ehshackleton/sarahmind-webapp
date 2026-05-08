@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   namespace :portal do
     resources :users, only: %i[index update]
-    resources :audit_events, only: :index
+    resources :audit_events, only: :index do
+      collection do
+        get :retention_guide
+      end
+    end
     resources :therapy_sessions
     resources :patients do
       resources :clinical_notes, only: :create
