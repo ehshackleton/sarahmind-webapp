@@ -5,6 +5,7 @@ test:
   adapter: test
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  # Para esta primera etapa de produccion evitamos depender de Redis
+  # mientras la app no use canales en tiempo real.
+  adapter: async
   channel_prefix: app_production

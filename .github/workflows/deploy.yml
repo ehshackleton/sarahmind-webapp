@@ -1,0 +1,60 @@
+name: Deploy production (Azure VM)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check SSH secrets
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          missing=0
+          if [ -z "${SSH_HOST}" ]; then
+            echo "::error::Missing SSH_HOST repository secret."
+            missing=1
+          fi
+          if [ -z "${SSH_USER}" ]; then
+            echo "::error::Missing SSH_USER repository secret."
+            missing=1
+          fi
+          if [ -z "${SSH_PRIVATE_KEY}" ]; then
+            echo "::error::Missing SSH_PRIVATE_KEY repository secret."
+            missing=1
+          fi
+          exit "${missing}"
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ vars.SSH_PORT || 22 }}
+          script: |
+            set -euo pipefail
+            REPO_DIR="${{ vars.DEPLOY_ROOT || '/home/azureuser/sarahmind-webapp' }}"
+            BRANCH="${{ vars.DEPLOY_BRANCH || 'main' }}"
+            REPO_URL="${{ vars.REPO_URL || format('git@github.com:{0}.git', github.repository) }}"
+
+            mkdir -p "$(dirname "${REPO_DIR}")"
+            if [ ! -d "${REPO_DIR}/.git" ]; then
+              git clone --branch "${BRANCH}" --single-branch "${REPO_URL}" "${REPO_DIR}"
+            fi
+
+            cd "${REPO_DIR}"
+            git fetch origin "${BRANCH}"
+            git checkout "${BRANCH}"
+            git reset --hard "origin/${BRANCH}"
+
+            if [ ! -f .env.production ]; then
+              echo "::error::Missing .env.production in ${REPO_DIR}. Copy .env.production.example and set real values."
+              exit 1
+            fi
+
+            docker compose -f docker-compose.production.yml --env-file .env.production build
+            docker compose -f docker-compose.production.yml --env-file .env.production up -d --remove-orphans

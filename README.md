@@ -62,11 +62,59 @@ Tras cambiar `Gemfile` o `Gemfile.lock`, vuelve a construir la imagen: `docker c
 ## Entornos
 
 - **development / test:** conexión PostgreSQL vía `config/database.yml` y variables `DATABASE_*` (o `DATABASE_URL` en CI).
-- **production:** usar `DATABASE_NAME`, `DATABASE_USER` y `APP_DATABASE_PASSWORD` (o `DATABASE_PASSWORD`) según tu despliegue; credenciales sensibles en el proveedor o `RAILS_MASTER_KEY` + credentials.
+- **production:** usar `DATABASE_NAME`, `DATABASE_USER`, `DATABASE_PASSWORD` y `SECRET_KEY_BASE` según tu despliegue; las credenciales sensibles deben venir desde variables de entorno o tu proveedor de secretos.
 
 ## CI
 
-GitHub Actions (`.github/workflows/ci.yml`): Brakeman, RuboCop (omakase) y tests con Postgres.
+GitHub Actions (`.github/workflows/ci.yml`): Brakeman, RuboCop (omakase), tests con Postgres y build de la imagen Docker de producción.
+
+## Producción en Azure VM
+
+El despliegue pensado para este repo usa:
+
+- una VM con Docker y Docker Compose
+- Traefik ya corriendo en la misma máquina
+- la red Docker externa `proxy`
+- el workflow manual `.github/workflows/deploy.yml`
+
+### Preparación en la VM
+
+1. Crear la red si aún no existe: `docker network create proxy`
+2. Clonar el repo en la VM o dejar que lo haga el workflow
+3. Copiar `.env.production.example` a `.env.production`
+4. Completar secretos reales en `.env.production`
+
+El archivo `docker-compose.production.yml` levanta:
+
+- `db` con volumen persistente para PostgreSQL
+- `web` con volumen persistente para `storage`
+- labels de Traefik para publicar `APP_HOST` por HTTPS
+
+### Secrets y variables en GitHub
+
+Secrets del repositorio:
+
+- `SSH_HOST`
+- `SSH_USER`
+- `SSH_PRIVATE_KEY`
+
+Variables opcionales del repositorio:
+
+- `SSH_PORT` (por defecto `22`)
+- `DEPLOY_ROOT` (por defecto `/home/azureuser/sarahmind-webapp`)
+- `DEPLOY_BRANCH` (por defecto `main`)
+- `REPO_URL` (por defecto el repositorio actual en GitHub)
+
+### Despliegue
+
+Una vez configurada la VM y los secrets, ejecuta manualmente el workflow `Deploy production (Azure VM)` desde GitHub Actions. El job:
+
+1. valida secretos SSH
+2. conecta por SSH a la VM
+3. sincroniza la rama de despliegue
+4. exige que exista `.env.production`
+5. ejecuta `docker compose -f docker-compose.production.yml --env-file .env.production build`
+6. ejecuta `docker compose -f docker-compose.production.yml --env-file .env.production up -d --remove-orphans`
 
 ## Documentación del proyecto
 
