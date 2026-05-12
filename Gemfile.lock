@@ -191,7 +191,9 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (5.27.0)
+    minitest (6.0.6)
+      drb (~> 2.0)
+      prism (~> 1.5)
     msgpack (1.8.0)
     multi_json (1.21.1)
     net-http (0.9.1)
@@ -396,7 +398,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
-  minitest (~> 5.25)
+  minitest (~> 6.0)
   pg (~> 1.1)
   puma (>= 5.0)
   pundit (~> 2.5)
