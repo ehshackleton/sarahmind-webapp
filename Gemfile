@@ -64,5 +64,5 @@ end
 
 gem "devise", "~> 5.0"
 gem "pundit", "~> 2.5"
-gem "google-apis-calendar_v3", "~> 0.53"
+gem "google-apis-calendar_v3", "~> 0.54"
 gem "googleauth", "~> 1.14"
